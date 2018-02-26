@@ -1,12 +1,8 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
-
-<<<<<<< HEAD
 require 'game_character'
 
-=======
->>>>>>> 666d3ab2b6d674d873579a815407c4e9b297b01b
 class Dice
   def initialize
     @NHANGARSPROB = 0.25
@@ -32,11 +28,7 @@ class Dice
     if gen <= @NWEAPONSPROB
       1
     elsif gen > @NWEAPONSPROB && gen <= 2*@NWEAPONSPROB
-<<<<<<< HEAD
       2
-=======
-            2
->>>>>>> 666d3ab2b6d674d873579a815407c4e9b297b01b
     else
       3
     end

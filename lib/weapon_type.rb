@@ -13,11 +13,7 @@ module WeaponType
     end
   end
   
-<<<<<<< HEAD
-  LASER =   Type.new(2.0)
-=======
   LASER = Type.new(2.0)
->>>>>>> 666d3ab2b6d674d873579a815407c4e9b297b01b
   MISSILE = Type.new(3.0) 
   PLASMA = Type.new(4.0)
 end
