@@ -1,7 +1,7 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
-# and open the template in the editor.
-require 'game_character'
+# and open the template in the editor.  
+require_relative 'game_character'
 
 class Dice
   def initialize
@@ -34,7 +34,7 @@ class Dice
     end
   end
   
-  def initWithShields
+  def initWithNShields
     if @generator.rand <= @NSHIELDSPROB
       0
     else
@@ -50,9 +50,9 @@ class Dice
   
   def firstShot
     if @generator.rand <= @FIRSTSHOTPROB
-      GAMECHARACTER.SPACESTATION
+      GameCharacter::SPACESTATION
     else  
-      GAMECHARACTER.ENEMYSTARSHIP
+      GameCharacter::ENEMYSTARSHIP
     end
   end
   
