@@ -3,6 +3,7 @@
 # and open the template in the editor.
 class Weapon
   
+  attr_reader :name
   attr_reader :type
   attr_reader :uses
   
@@ -12,7 +13,7 @@ class Weapon
     @uses = uses
   end
   
-  def newCopy(s)
+  def self.newCopy(s)
     return Weapon.new(s.name, s.type, s.uses)
   end
   
@@ -22,7 +23,7 @@ class Weapon
   
   def useIt
     if uses > 0
-      uses -= 1
+      @uses -= 1
       power
     else
       1.0

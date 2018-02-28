@@ -15,7 +15,7 @@ class SuppliesPackage
     @shieldPower = shieldPower
   end
   
-  def newCopy(s)
+  def self.newCopy(s)
     SuppliesPackage.new(s.ammoPower, s.fuelUnits, s.shieldPower)
   end
 end

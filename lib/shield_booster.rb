@@ -4,8 +4,9 @@
 
 class ShieldBooster
   
-  attr_reader :boost
-  attr_reader :uses
+  attr_reader :name  #String
+  attr_reader :boost #Float
+  attr_reader :uses  #Int
   
   def initialize(name, boost, uses)
     @name = name
@@ -13,7 +14,7 @@ class ShieldBooster
     @uses = uses
   end
   
-  def newCopy(s)
+  def self.newCopy(s)
     return ShieldBooster.new(s.name, s.boost, s.uses);
   end
   
