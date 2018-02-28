@@ -25,7 +25,7 @@ class Dice
     #https://stackoverflow.com/questions/1426826/difference-between-and-and-in-ruby
 
     gen = @generator.rand
-    if gen <= @NWEAPONSPROB
+    if gen < @NWEAPONSPROB
       1
     elsif gen > @NWEAPONSPROB && gen <= 2*@NWEAPONSPROB
       2
@@ -35,7 +35,7 @@ class Dice
   end
   
   def initWithNShields
-    if @generator.rand <= @NSHIELDSPROB
+    if @generator.rand < @NSHIELDSPROB
       0
     else
       1
@@ -49,7 +49,7 @@ class Dice
   end
   
   def firstShot
-    if @generator.rand <= @FIRSTSHOTPROB
+    if @generator.rand < @FIRSTSHOTPROB
       GameCharacter::SPACESTATION
     else  
       GameCharacter::ENEMYSTARSHIP
@@ -59,7 +59,7 @@ class Dice
   def spaceStationMoves(speed)
     #We assume 0 <= speed < 1 
     
-    if @generator.rand <= speed
+    if @generator.rand < speed
       true
     else
       false
