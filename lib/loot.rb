@@ -6,7 +6,7 @@ class Loot
   
   #Clase que representa el botín que se obtiene la vencer una nave enemiga
   
-  attr_reader :Supplies   #Paquetes de suministros
+  attr_reader :nSupplies   #Paquetes de suministros
   attr_reader :nWeapons   #Paquetes de armas
   attr_reader :nShields   #Potenciadores de escudos
   attr_reader :nHangars   #Hangares
