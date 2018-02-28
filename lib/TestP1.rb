@@ -3,6 +3,7 @@ require_relative 'weapon_type'
 require_relative 'dice'
 require_relative 'game_character'
 require_relative 'loot'
+require_relative 'shield_booster'
 
 class TestP1
   
@@ -14,6 +15,9 @@ class TestP1
       testDiceProb
       puts "=============="
       puts "Test loot: #{testLoot}"
+      puts "=============="
+      puts "Test ShieldBooster: #{testShieldBooster}"
+      
     end
   end
   
@@ -37,10 +41,32 @@ class TestP1
   
   def testWeapon
     #Creamos un objeto de tipo laser con 3 usos
+    
+    # Test methods
     weapon = Weapon.new("test", WeaponType::LASER, 3)
     uses = weapon.uses == 3
     type = weapon.type == WeaponType::LASER
-    return uses && type
+    
+    weapon.useIt
+    
+    newuses = weapon.uses == 2
+    testpower = weapon.useIt == WeaponType::LASER.power
+    weapon.useIt
+    
+    wasted = weapon.useIt == 1
+    
+    power = weapon.power == 2 #The power of a laser
+    
+    #Test copy
+    
+    newWeapon = Weapon.newCopy(weapon)
+    
+    sameUses = weapon.uses == newWeapon.uses
+    sameType = weapon.type == newWeapon.type
+    sameName = weapon.name == newWeapon.name
+    testNueva = sameUses && sameType && sameName
+    
+    return uses && type && newuses && wasted && testpower && power && testNueva
   end
   
   def testDiceProb
@@ -93,6 +119,32 @@ class TestP1
   end
   
   def testShieldBooster
+    # Test methods
+    booster = ShieldBooster.new("test", 4.1, 3)
+    uses = booster.uses == 3
+    boost = booster.boost == 4.1
+    
+    booster.useIt
+    
+    newuses = booster.uses == 2
+    booster.useIt
+    boostUsing = booster.useIt == 4.1
+    
+    wasted = booster.useIt == 1
+        
+    #Test copy
+    
+    newWeapon = ShieldBooster.newCopy(booster)
+    
+    sameUses = booster.uses == newWeapon.uses
+    sameBoost = booster.boost == newWeapon.boost
+    sameName = booster.name == newWeapon.name
+    testNueva = sameUses && sameBoost && sameName
+    
+    return uses && boost && newuses && wasted && testNueva && boostUsing
+  end
+  
+  def testSuppliePackage
     
   end
 end
