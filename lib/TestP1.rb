@@ -1,9 +1,9 @@
-require_relative 'weapon'
-require_relative 'weapon_type'
-require_relative 'dice'
-require_relative 'game_character'
-require_relative 'loot'
-require_relative 'shield_booster'
+require_relative 'Weapon'
+require_relative 'WeaponType'
+require_relative 'Dice'
+require_relative 'GameCharacter'
+require_relative 'Loot'
+require_relative 'ShieldBooster'
 
 class TestP1
   
