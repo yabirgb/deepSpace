@@ -2,18 +2,20 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-module WeaponType
-  class Type
-    def initialize p
-      @power = p
+module Deepspace
+  module WeaponType
+    class Type
+      def initialize p
+        @power = p
+      end
+
+      def power
+        @power
+      end
     end
-    
-    def power
-      @power
-    end
+
+    LASER = Type.new(2.0)
+    MISSILE = Type.new(3.0) 
+    PLASMA = Type.new(4.0)
   end
-  
-  LASER = Type.new(2.0)
-  MISSILE = Type.new(3.0) 
-  PLASMA = Type.new(4.0)
 end

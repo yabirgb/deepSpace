@@ -8,7 +8,7 @@ require_relative 'shield_booster'
 class TestP1
   
   def initialize(alltests=true)
-    @dice = Dice.new
+    @dice = Deepspace::Dice.new
     if(alltests)
       puts "Test weapon: #{testWeapon}"
       puts "=============="
@@ -27,7 +27,7 @@ class TestP1
     shields = 0
     hangars = 3
     medals = 1
-    loot = Loot.new(supplies, weapons, shields, hangars, medals)
+    loot = Deepspace::Loot.new(supplies, weapons, shields, hangars, medals)
     
     tsupplies = loot.nSupplies == supplies
     tweapons = loot.nWeapons == weapons
@@ -43,14 +43,14 @@ class TestP1
     #Creamos un objeto de tipo laser con 3 usos
     
     # Test methods
-    weapon = Weapon.new("test", WeaponType::LASER, 3)
+    weapon = Deepspace::Weapon.new("test", Deepspace::WeaponType::LASER, 3)
     uses = weapon.uses == 3
-    type = weapon.type == WeaponType::LASER
+    type = weapon.type == Deepspace::WeaponType::LASER
     
     weapon.useIt
     
     newuses = weapon.uses == 2
-    testpower = weapon.useIt == WeaponType::LASER.power
+    testpower = weapon.useIt == Deepspace::WeaponType::LASER.power
     weapon.useIt
     
     wasted = weapon.useIt == 1
@@ -59,7 +59,7 @@ class TestP1
     
     #Test copy
     
-    newWeapon = Weapon.newCopy(weapon)
+    newWeapon = Deepspace::Weapon.newCopy(weapon)
     
     sameUses = weapon.uses == newWeapon.uses
     sameType = weapon.type == newWeapon.type
@@ -120,7 +120,7 @@ class TestP1
   
   def testShieldBooster
     # Test methods
-    booster = ShieldBooster.new("test", 4.1, 3)
+    booster = Deepspace::ShieldBooster.new("test", 4.1, 3)
     uses = booster.uses == 3
     boost = booster.boost == 4.1
     
@@ -134,7 +134,7 @@ class TestP1
         
     #Test copy
     
-    newWeapon = ShieldBooster.newCopy(booster)
+    newWeapon = Deepspace::ShieldBooster.newCopy(booster)
     
     sameUses = booster.uses == newWeapon.uses
     sameBoost = booster.boost == newWeapon.boost
