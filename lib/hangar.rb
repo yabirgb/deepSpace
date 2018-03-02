@@ -2,7 +2,9 @@ module Deepspace
   class Hangar
 
     attr_reader maxElements
-
+    
+    public
+    
     def initialize(capacity)
       @maxElements = capacity
       @weapons = Array.new()
@@ -35,15 +37,15 @@ module Deepspace
       end
     end
 
-    def getMaxElements
+    def maxElements
       @maxElements
     end
 
-    def getShieldBoosters
+    def shieldBoosters
       @shields
     end
 
-    def getWeapons
+    def weapons
       @weapons
     end
     
