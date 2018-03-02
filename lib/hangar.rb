@@ -12,11 +12,14 @@ module Deepspace
     def newCopy(h)
       Hangar.new(h.maxElements)
     end
+    
+    def spaceAvailable
+      return @maxElements - @weapons.length - @shields.length
+    end
 
     def addWeapon(w)
-      if @elements < getMaxElements()
+      if spaceAvailable > 0
         @weapons.push(w)
-        @elements += 1
         true
       else  
         false
@@ -24,9 +27,8 @@ module Deepspace
     end
 
     def addShieldBooster(s)
-      if @elements < getMaxElements()
+      if spaceAvailable > 0
         @weapons.push(s)
-        @elements += 1
         true
       else  
         false
@@ -44,6 +46,16 @@ module Deepspace
     def getWeapons
       @weapons
     end
+    
+    def removeShieldBooster(s)
+      @shields.delete_at(s)
+    end
+    
+    def removeWeapon(w)
+      @shields.delete_at(w)
+    end
+    
+    private :spaceAvailable
 
   end
 end
