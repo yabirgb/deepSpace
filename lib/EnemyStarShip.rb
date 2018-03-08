@@ -1,4 +1,5 @@
 require_relative 'ShotResult'
+require_relative 'EnemeToUI'
 module Deepspace
   class EnemyStarShip
     
@@ -42,5 +43,14 @@ module Deepspace
         Deepspace::ShotResult::RESIST
       end
     end
+    
+    def to_s
+      "Name: #{name}; Damage: #{damage}; Loot: #{loot}; AmmoPower: #{ammoPower}; ShieldPower: #{shieldPower} "
+    end
+    
+    def UIVersion
+      EnemyToUI(self)
+    end
+    
   end
 end
