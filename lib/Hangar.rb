@@ -8,7 +8,7 @@ module Deepspace
     def initialize(capacity)
       @maxElements = capacity
       @weapons = Array.new()
-      @shields = Array.new()
+      @shieldBoosters = Array.new()
     end
 
     def newCopy(h)
@@ -42,7 +42,7 @@ module Deepspace
     end
 
     def shieldBoosters
-      @shields
+      @shieldBoosters
     end
 
     def weapons
@@ -50,11 +50,11 @@ module Deepspace
     end
     
     def removeShieldBooster(s)
-      @shields.delete_at(s)
+      @shieldBoosters.delete_at(s)
     end
     
     def removeWeapon(w)
-      @shields.delete_at(w)
+      @shieldBoosters.delete_at(w)
     end
     
     private :spaceAvailable

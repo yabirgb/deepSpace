@@ -92,12 +92,32 @@ module DeepSpace
       end
     end
     
+    def mountShieldBooster(i)
+      if @hangar != nil
+        @hangar.addShieldBooster(shieldBoosters[i])
+        @shieldBoosters.delete_at(i)
+      end
+    end
+    
+    def mountWeapon(i)
+      if @hangar != nil
+        @hangar.addWeapon(weapons[i])
+        @weapons.delete_at(i)
+      end
+    end
+    
     def validState
       if pendingDamage == nil || pendingDamage.hasNoEffect
         true
       else  
         false
       end
+    end
+    
+    def receiveSupplies(s)
+      @ammoPower += s.ammoPower
+      @fuelUnits += s.fuelUnits
+      @shieldPower += s.shieldPower
     end
     
     def cleanUpMountedItems
