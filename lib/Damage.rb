@@ -8,27 +8,40 @@ module Deepspace
     attr_getter :nWeapons
     attr_getter :weapons
 
-    def initialize(nshields, nweapons)
-      if
-        @nShields = nshields
-        @nWeapons = nweapons
-      end
+    def initialize(nweapons, nshields, wl)
+      @nShields = nshields
+      @nWeapons = nweapons
+      @weapons = wl
     end
 
-    def newCopy(wl, s)
-      @weapons = wl
-      @nshields = s
+    def self.newNumericWeapons(w, s)
+      new(w, s, nil)
+    end
+    
+    def self.newSpecificWeapons(wl, s)
+      new(nil, s, wl)
     end
 
     private
 
-    def adjust(w, s)
-      #Toma como argumento dos arrays
+    def adjust(wl, sl)
+      #Comrprobamos si es de tipo numerico
+      
+      if wl == nil
+        newNumericWeapons(Array.new([wl.length, @nWeapons].min), Array.new([sl.length, @nShields].min))
+      else  
+        copy = Array.new(wl)
+        @weapons.each{|x|
+          copy.delete_at(copy.find_index(x))
+        }
+        
+        newSpecificWeapons(copy, nShields)
+      end
       
     end
     
     def arrayContainsType(w, t)
-      pos = w.detect{|x| x.weapon.getType() == t}
+      pos = w.index{|x| x.weapon.getType() == t}
       if pos == nil
         -1
       end
@@ -57,7 +70,7 @@ module Deepspace
       end 
     end
 
-    def UIVersion
+    def UIversion
       DamageToUI(self)
     end
     
