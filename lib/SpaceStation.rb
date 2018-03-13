@@ -1,6 +1,10 @@
 require_relative 'Damage'
 require_relative 'Hangar'
 require_relative 'SuppliesPackage'
+require_relative 'ShotResult'
+require_relative 'CardDealer'
+require_relative 'Loot'
+require_relative 'Weapon'
 
     
 #When a attribute doesn't exists we get nil trying to get.
@@ -125,6 +129,45 @@ module DeepSpace
       @weapons.delete_if{|x| x.uses == 0}
     end
     
+    def fire
+      factor = 1
+      @weapons.each{|x|
+        factor *= x.useIt
+      }
+      
+      factor*@ammoPower
+    end
+    
+    def protection
+      factor = 1
+      @shieldsBoosters.each { |x|
+        factor *= x.useIt()
+      }
+      
+      @shieldPower *factor
+    end
+    
+    def receiveShoot(shot)
+      myProtection = protection
+      
+      if myProtection >= shot
+        @shieldPower -= @SHIELDLOSSPERUNITSHOT*shot
+        @shieldPower = [0, shieldPower].max
+        ShotResult::RESIST
+      else
+        shieldPower = 0
+        ShotResult::DONOTRESIST
+      end 
+    end
+    
+    def setLoot
+      dealer = CardDealer
+      h = @loot.getNHangars
+      
+      if h > 0
+        
+      end
+    end
       
   end
 end

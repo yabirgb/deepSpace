@@ -17,6 +17,7 @@ class TestP1
       puts "Test loot: #{testLoot}"
       puts "=============="
       puts "Test ShieldBooster: #{testShieldBooster}"
+      testMap
       
     end
   end
@@ -144,9 +145,6 @@ class TestP1
     return uses && boost && newuses && wasted && testNueva && boostUsing
   end
   
-  def testSuppliePackage
-    
-  end
 end
 
 testweapon = TestP1.new

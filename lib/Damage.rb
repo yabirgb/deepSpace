@@ -63,7 +63,7 @@ module Deepspace
     end
     
     def hasNoEffect
-      if @nShields == 0 && @nWeapons == 0
+      if @nShields == 0 && (@nWeapons == 0 || @weapons.length == 0)
         true
       else
         false

@@ -75,6 +75,7 @@ class CardDealer
         @suppliesPackages.add(SuppliesPackage.new(3,50,3))  
         @suppliesPackages.add(SuppliesPackage.new(40,100,40))
         @suppliesPackages.add(SuppliesPackage.new(100,100,100))
+        @suppliesPackages.add(SuppliesPackage.new(6,6,7))
     end
     
     def createWeapons() 
@@ -102,7 +103,9 @@ class CardDealer
        @weapons.add(Weapon.new("Cañón ACME",WeaponType::PLASMA,1)) 
        @weapons.add(Weapon.new("Cañón ACME",WeaponType::PLASMA,1)) 
        @weapons.add(Weapon.new("Cañón ACME",WeaponType::PLASMA,1)) 
-       @weapons.add(Weapon.new("Cañón mejorado",WeaponType::PLASMA,2))       
+       @weapons.add(Weapon.new("Cañón mejorado",WeaponType::PLASMA,2))    
+       
+      @weapons.add(Weapon.new("Destructor estelar", WeaponType::PLASMA,50))
        
     end
     
@@ -118,6 +121,7 @@ class CardDealer
        @shieldBoosters.add(ShieldBooster.new("Escudo ACME",1.5,2))
        @shieldBoosters.add(ShieldBooster.new("Escudo normal",3.0,2))
        @shieldBoosters.add(ShieldBooster.new("Escudo normal",4.0,2))
+       @shieldBoosters.add(ShieldBooster.new("Coraza sonica", 5.0,5))
     end
                                
     def createHangars() 
@@ -180,7 +184,8 @@ class CardDealer
         @enemies.add(EnemyStarShip.new("Enemigo difícil 0",200,100,goodLoot,hardSpecificDamage0));          
         @enemies.add(EnemyStarShip.new("Enemigo difícil 1",100,200,goodLoot,hardSpecificDamage0));   
         
-        @enemies.add(EnemyStarShip.new("Enemigo imposible",500,500,goodLoot,hardSpecificDamage0));              
+        @enemies.add(EnemyStarShip.new("Enemigo imposible",500,500,goodLoot,hardSpecificDamage0));       
+        @enemies.add(EnemyStarShip.new("Nave Falcon", 200, 40, 10, regularSpecificDamage0));
     end
 end # class
 
