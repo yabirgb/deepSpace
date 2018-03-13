@@ -1,3 +1,6 @@
+require 'singleton'
+
+
 require_relative 'Dice'
 require_relative 'SpaceStation'
 require_relative 'GameStateController'
@@ -10,7 +13,6 @@ module Deepspace
     def initialize()
       @WIN = 10
       @currentStationIndex = nil
-      @spaceStations = Array.new
       @gameState = GameStateController.new
       @turns = 0
       @dice = Dice.new()
@@ -74,6 +76,44 @@ module Deepspace
     
     def getUIversion
       GameUniverseToUI.new()
+    end
+    
+    def init(names)
+      state = @gameState.getState
+      
+      if state == GameState::CANNOTPLAY
+        @spaceStations = Array.new
+        dealer = CardDealer.instance 
+        
+        names.each{|name|
+          supplies = dealer.nextSuppliesPackage
+          station = SpaceStation.new(name, supplies)
+          nh = @dice.initWithNHangars
+          nw = @dice.initWithWeapons
+          ns = @dice.initWithNShields
+          
+          l = loot.new(0, nh, nw, ns, 0)
+          
+          station.setLoot(l)
+          @spaceStations.push(station)
+          
+        }
+        
+        currentStationIndex = @dice.whoStarts(names.length)
+        currentStation = @spaceStations[currentStationIndex]
+        currentEnemy = dealer.nextEnemy()
+        @gameState.next(@turns, @spaceStation.length)
+      end
+      
+    end
+    
+    def nextTurn
+      gameState = @gameState.getState
+      
+      if gameState == GameState::AFTERCOMBAT
+        
+      end
+      
     end
     
   end

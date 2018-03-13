@@ -160,14 +160,62 @@ module DeepSpace
       end 
     end
     
-    def setLoot
-      dealer = CardDealer
-      h = @loot.getNHangars
+    def setLoot(loot)
+      dealer = CardDealer.new
+      h = loot.getNHangars
       
       if h > 0
+        hangar = dealer.nextHangar
+        receiveHangar(dealer.nextHangar)
+      end
+      
+      (1..loot.nSupplies).each { |s|
+        receiveSupplies(dealer.nextSuppliesPackage)
+      }
+      
+      (1..loot.nSupplies).each { |s|
+        receiveWeapon(dealer.nextWeapon)
+      }
+      
+      (1..loot.nShields).each { |s|
+        receiveShieldBooster(dealer.nextShieldBooster)
+      }
+      
+      @nMedals += loot.nMedals
+      
+    end
+    
+    def discardWeapon(i)
+      size = weapons.length
+      
+      if i > 0 && i < size
+        w = @weapons.delete_at(i)
+        
+        if pendingDamage != nil
+          @pendingDamage.discardWeapon(w)
+          cleanPendingDamage
+        end
         
       end
-    end
       
+    end
+    
+    def discardShieldBooster(i)
+      size = shieldBoosters.length
+      
+      if i > 0 && i < size
+        @shieldBoosters.delete_at(i)
+        
+        if pendingDamage != nil
+          @pendingDamage.discardShieldBooster
+          cleanPendingDamage
+        end
+        
+      end
+      
+    end
+    
+    
+    
   end
 end
