@@ -226,7 +226,7 @@ module Deepspace
     end
     
     def setPendingDamage(d)
-      @pendingDamage = d.adjust(@weapons,@shieldsBoosters)
+      @pendingDamage = d.adjust(@weapons,@shieldBoosters)
     end
     
     def getUIversion
