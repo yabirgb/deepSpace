@@ -46,7 +46,7 @@ module Deepspace
     end
     
     def removeWeapon(w)
-      @shieldBoosters.delete_at(w)
+      @weapons.delete_at(w)
     end
     
     def getUIversion
