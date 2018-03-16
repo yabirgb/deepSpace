@@ -23,7 +23,17 @@ module Deepspace
     end
 
     private
+    
+    def arrayContainsType(w, t)
+      pos = w.index{|x| x.weapon.getType() == t}
+      if pos == nil
+        -1
+      end
+    end
 
+    public
+    
+    
     def adjust(wl, sl)
       #Comrprobamos si es de tipo numerico
       
@@ -39,15 +49,6 @@ module Deepspace
       end
       
     end
-    
-    def arrayContainsType(w, t)
-      pos = w.index{|x| x.weapon.getType() == t}
-      if pos == nil
-        -1
-      end
-    end
-
-    public
 
     def discardWeapon(w)
       #Si borramos pero no está nos devuelve nil
