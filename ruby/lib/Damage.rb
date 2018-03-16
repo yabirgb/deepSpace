@@ -35,8 +35,8 @@ module Deepspace
     
     
     def adjust(wl, sl)
-      w_min = Array.new([@nWeapons, wl.length]).min
-      s_min = Array.new([@nShields, sl.length]).min
+      w_min = Array.new([@nWeapons, wl.length].delete_if{|x| x == nil}).min
+      s_min = Array.new([@nShields, sl.length].delete_if{|x| x == nil}).min
       
       if @weapons != nil
         aux = Array.new
@@ -70,11 +70,7 @@ module Deepspace
     end
     
     def hasNoEffect
-      if @nShields == 0 && (@nWeapons == 0 || @weapons.length == 0)
-        true
-      else
-        false
-      end 
+      @nShields == 0 && (@nWeapons == 0 || @weapons.length == 0)
     end
 
     def getUIversion

@@ -49,9 +49,7 @@ module Deepspace
     
     def cleanPendingDamage
       #We have to check if exits because if it's nil we are doing nil.hasNoEffect
-      if pendingDamage != nil 
-        @pendingDamage = nil if @pendingDamage.hasNoEffect
-      end
+      @pendingDamage = nil if @pendingDamage.hasNoEffect
     end
     
     public
@@ -121,11 +119,7 @@ module Deepspace
     end
     
     def validState
-      if pendingDamage == nil || pendingDamage.hasNoEffect
-        true
-      else  
-        false
-      end
+      pendingDamage == nil || pendingDamage.hasNoEffect
     end
     
     def receiveSupplies(s)
@@ -198,7 +192,7 @@ module Deepspace
     def discardWeapon(i)
       size = weapons.length
       
-      if i > 0 && i < size
+      if i >= 0 && i < size
         w = @weapons.delete_at(i)
         
         if pendingDamage != nil
