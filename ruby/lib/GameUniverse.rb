@@ -94,7 +94,7 @@ module Deepspace
           nw = @dice.initWithNWeapons
           ns = @dice.initWithNShields
           
-          l = Loot.new(0, nh, nw, ns, 0)
+          l = Loot.new(0, nw, ns, nh, 0)
           
           station.setLoot(l)
           @spaceStations.push(station)
@@ -112,23 +112,20 @@ module Deepspace
     def nextTurn
       gameState = @gameState.state
       if gameState == GameState::AFTERCOMBAT
-        stationState = currentStation.validState
-        
+        stationState = @currentStation.validState
         if stationState
-          @currentStationIndex = (@currentStationIndex +1) % @spaceStation.length
+          @currentStationIndex = (@currentStationIndex +1) % @spaceStations.length
           @turns += 1
           
           @currentStation = @spaceStations[@currentStationIndex]
           @currentStation.cleanUpMountedItems
           dealer = CardDealer.instance 
           @currentEnemy = dealer.nextEnemy
-          @gameState.next(@turns, @spaceStation.length)
-          true
+          @gameState.next(@turns, @spaceStations.length)
+          return true
         end
-        
-        false
       end
-      
+      false
     end
     
     def combat
@@ -188,7 +185,7 @@ module Deepspace
           station.setLoot(aLoot)
           combatResult=CombatResult::STATIONWINS
         end
-        
+        @gameState.next(@turns, @spaceStations.length)
         combatResult
         
       end 
