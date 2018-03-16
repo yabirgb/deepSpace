@@ -4,9 +4,9 @@ require_relative 'WeaponType'
 module Deepspace
   class Damage
 
-    attr_getter :nShields
-    attr_getter :nWeapons
-    attr_getter :weapons
+    attr_reader :nShields
+    attr_reader :nWeapons
+    attr_reader :weapons
 
     def initialize(nweapons, nshields, wl)
       @nShields = nshields
@@ -41,8 +41,9 @@ module Deepspace
         newNumericWeapons(Array.new([wl.length, @nWeapons].min), Array.new([sl.length, @nShields].min))
       else  
         copy = Array.new(wl)
+        
         @weapons.each{|x|
-          copy.delete_at(copy.find_index(x))
+          copy.delete_at(copy.find_index(x.type))
         }
         
         newSpecificWeapons(copy, nShields)
