@@ -63,7 +63,7 @@ module Deepspace
     end
     
     def receiveWeapon(w)
-      if hangar != nil
+      if @hangar != nil
         @hangar.addWeapon(w)
       else
         false
@@ -71,7 +71,7 @@ module Deepspace
     end
     
     def receiveShieldBooster(s)
-      if hangar != nil
+      if @hangar != nil
         @hangar.addShieldBooster(s)
       else
         false
@@ -79,7 +79,7 @@ module Deepspace
     end
     
     def receiveHangar(h)
-      if hangar == nil
+      if @hangar == nil
         @hangar = h
       end
     end
@@ -119,7 +119,7 @@ module Deepspace
     end
     
     def validState
-      pendingDamage == nil || pendingDamage.hasNoEffect
+      @pendingDamage == nil || @pendingDamage.hasNoEffect
     end
     
     def receiveSupplies(s)
@@ -156,7 +156,7 @@ module Deepspace
       
       if myProtection >= shot
         @shieldPower -= @SHIELDLOSSPERUNITSHOT*shot
-        @shieldPower = [0, shieldPower].max
+        @shieldPower = [0, @shieldPower].max
         ShotResult::RESIST
       else
         shieldPower = 0
@@ -173,15 +173,15 @@ module Deepspace
         receiveHangar(dealer.nextHangar)
       end
       
-      (1..loot.nSupplies).each { |s|
+      (0...loot.nSupplies).each { |s|
         receiveSupplies(dealer.nextSuppliesPackage)
       }
       
-      (1..loot.nSupplies).each { |s|
+      (0...loot.nWeapons).each { |s|
         receiveWeapon(dealer.nextWeapon)
       }
       
-      (1..loot.nShields).each { |s|
+      (0...loot.nShields).each { |s|
         receiveShieldBooster(dealer.nextShieldBooster)
       }
       
@@ -190,12 +190,12 @@ module Deepspace
     end
     
     def discardWeapon(i)
-      size = weapons.length
+      size = @weapons.length
       
       if i >= 0 && i < size
         w = @weapons.delete_at(i)
         
-        if pendingDamage != nil
+        if @pendingDamage != nil
           @pendingDamage.discardWeapon(w)
           cleanPendingDamage
         end
@@ -205,20 +205,17 @@ module Deepspace
     end
     
     def discardShieldBooster(i)
-      size = shieldBoosters.length
+      size = @shieldBoosters.length
       
       if i >= 0 && i < size
         @shieldBoosters.delete_at(i)
         
-        if pendingDamage != nil
-          @pendingDamage.discardShieldBooster
-          cleanPendingDamage
-        end
-        
+        @pendingDamage.discardShieldBooster
+        cleanPendingDamage
       end
-      
+        
     end
-    
+          
     def setPendingDamage(d)
       @pendingDamage = d.adjust(@weapons,@shieldBoosters)
     end
