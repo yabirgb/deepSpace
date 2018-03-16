@@ -19,7 +19,7 @@ module Deepspace
     end
     
     def self.newSpecificWeapons(wl, s)
-      new(nil, s, wl)
+      new(wl.length, s, wl)
     end
 
     private
@@ -35,25 +35,26 @@ module Deepspace
     
     
     def adjust(wl, sl)
-      #Comrprobamos si es de tipo numerico
+      w_min = Array.new([@nWeapons, wl.length]).min
+      s_min = Array.new([@nShields, sl.length]).min
       
-      if wl == nil
-        Damage.newNumericWeapons(Array.new([wl.length, @nWeapons].min), Array.new([sl.length, @nShields].min))
-      else  
-        if weapons != nil
-          copy = Array.new(wl)
-          @weapons.each{|x|
-            copy.delete_at(copy.find_index(x))
-          }
-
-          Damage.newSpecificWeapons(copy, @nShields)
-        else
-          Damage.newSpecificWeapons(Array.new, @nshields)
+      if @weapons != nil
+        aux = Array.new
+        w_aux = Array.new(@weapons)
+        
+        for i in 0...wl.length
+          if w_aux.include?(wl[i].type)
+            aux.push(wl[i].type)
+            w_aux.delete(wl[i].type)
+          end
         end
         
+        return Damage.newSpecificWeapons(aux, s_min)
       end
       
+      Damage.newNumericWeapons(w_min, s_min)
     end
+
 
     def discardWeapon(w)
       #Si borramos pero no está nos devuelve nil
