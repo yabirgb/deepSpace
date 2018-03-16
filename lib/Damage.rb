@@ -19,7 +19,7 @@ module Deepspace
     end
     
     def self.newSpecificWeapons(wl, s)
-      new(wl.length, s, wl)
+      new(nil, s, wl)
     end
 
     private

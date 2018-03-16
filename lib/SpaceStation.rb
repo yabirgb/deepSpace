@@ -213,7 +213,7 @@ module Deepspace
     def discardShieldBooster(i)
       size = shieldBoosters.length
       
-      if i > 0 && i < size
+      if i >= 0 && i < size
         @shieldBoosters.delete_at(i)
         
         if pendingDamage != nil
