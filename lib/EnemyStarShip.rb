@@ -1,5 +1,5 @@
 require_relative 'ShotResult'
-require_relative 'EnemeToUI'
+require_relative 'EnemyToUI'
 module Deepspace
   class EnemyStarShip
     

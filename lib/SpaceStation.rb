@@ -10,7 +10,7 @@ require_relative 'Weapon'
 #When a attribute doesn't exists we get nil trying to get.
 #On set it works as expected
 
-module DeepSpace
+module Deepspace
   class SpaceStation
     
     attr_reader :hangar
@@ -33,7 +33,8 @@ module DeepSpace
       @MAXFUEL = 100
       @SHIELDLOSSPERUNITSHOT = 0.1
       @name = n
-      @supplies = supplies   
+      @supplies = supplies
+      @nMedals = 0
     end
     
     private
@@ -161,8 +162,8 @@ module DeepSpace
     end
     
     def setLoot(loot)
-      dealer = CardDealer.new
-      h = loot.getNHangars
+      dealer = CardDealer.instance
+      h = loot.nHangars
       
       if h > 0
         hangar = dealer.nextHangar
@@ -215,7 +216,9 @@ module DeepSpace
       
     end
     
-    
+    def setPendingDamage(d)
+      @pendingDamage = d.adjust(@weapons,@shieldsBoosters)
+    end
     
   end
 end

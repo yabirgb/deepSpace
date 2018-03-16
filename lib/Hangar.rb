@@ -1,7 +1,7 @@
 module Deepspace
   class Hangar
 
-    attr_reader maxElements
+    attr_reader :maxElements
     
     public
     
@@ -16,7 +16,7 @@ module Deepspace
     end
     
     def spaceAvailable
-      return @maxElements - @weapons.length - @shields.length
+        @maxElements - @weapons.length - @shieldBoosters.length
     end
 
     def addWeapon(w)
