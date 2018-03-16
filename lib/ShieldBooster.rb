@@ -1,6 +1,5 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
+require_relative 'ShieldToUI'
+
 module Deepspace
   class ShieldBooster
 
@@ -25,6 +24,14 @@ module Deepspace
       else
         1.0
       end
+    end
+    
+    def to_s
+      "name: #{@name} - boost: #{@boots} - uses: #{@uses}"
+    end
+    
+    def getUIversion
+      ShieldToUI.new(self)
     end
 
   end

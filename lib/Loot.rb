@@ -1,6 +1,5 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
+require_relative 'LootToUI'
+
 module Deepspace
   class Loot
 
@@ -18,6 +17,14 @@ module Deepspace
       @nShields = nShields
       @nHangars = nHangars
       @nMedals = nMedals
+    end
+    
+    def getUIversion
+      LootToUI.new(self)
+    end
+    
+    def to_s
+      "Supplies: #{@nSupplies}"
     end
   end
 end

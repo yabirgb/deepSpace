@@ -38,15 +38,19 @@ module Deepspace
       #Comrprobamos si es de tipo numerico
       
       if wl == nil
-        newNumericWeapons(Array.new([wl.length, @nWeapons].min), Array.new([sl.length, @nShields].min))
+        Damage.newNumericWeapons(Array.new([wl.length, @nWeapons].min), Array.new([sl.length, @nShields].min))
       else  
-        copy = Array.new(wl)
+        if weapons != nil
+          copy = Array.new(wl)
+          @weapons.each{|x|
+            copy.delete_at(copy.find_index(x))
+          }
+
+          Damage.newSpecificWeapons(copy, @nShields)
+        else
+          Damage.newSpecificWeapons(Array.new, @nshields)
+        end
         
-        @weapons.each{|x|
-          copy.delete_at(copy.find_index(x.type))
-        }
-        
-        newSpecificWeapons(copy, nShields)
       end
       
     end
@@ -72,8 +76,8 @@ module Deepspace
       end 
     end
 
-    def UIversion
-      DamageToUI(self)
+    def getUIversion
+      DamageToUI.new(self)
     end
     
     def to_s

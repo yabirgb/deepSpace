@@ -3,6 +3,7 @@ require_relative 'Hangar'
 require_relative 'SuppliesPackage'
 require_relative 'ShotResult'
 require_relative 'CardDealer'
+require_relative 'SpaceStationToUI'
 require_relative 'Loot'
 require_relative 'Weapon'
 
@@ -22,7 +23,6 @@ module Deepspace
     attr_reader :shieldBoosters
     attr_reader :weapons
     attr_reader :shieldPower 
-    attr_reader :speed
     attr_reader :UIVersion
     
 
@@ -35,6 +35,11 @@ module Deepspace
       @name = n
       @supplies = supplies
       @nMedals = 0
+      @weapons = Array.new
+      @shieldBoosters = Array.new
+      @ammoPower = 0
+      @shieldPower = 0
+      @fuelUnits = 0
     end
     
     private
@@ -86,9 +91,13 @@ module Deepspace
     end
     
     def move
-      if fuelUnits - speed > 0
-        fuelUnits -= speed
+      if @fuelUnits - speed > 0
+        @fuelUnits -= speed
       end
+    end
+    
+    def speed
+      @fuelUnits*1.0/@MAXFUEL
     end
     
     def receiveSupplies(s)
@@ -98,16 +107,16 @@ module Deepspace
     end
     
     def mountShieldBooster(i)
-      if @hangar != nil
-        @hangar.addShieldBooster(shieldBoosters[i])
-        @shieldBoosters.delete_at(i)
+      if @hangar != nil && i != -1
+        @shieldBoosters.push(ShieldBooster.newCopy(@hangar.shieldBoosters[i]))
+        @hangar.removeShieldBooster(i)
       end
     end
     
     def mountWeapon(i)
-      if @hangar != nil
-        @hangar.addWeapon(weapons[i])
-        @weapons.delete_at(i)
+      if @hangar != nil and i != -1
+        @weapons.push(Weapon.newCopy(@hangar.weapons[i]))
+        @hangar.removeWeapon(i)
       end
     end
     
@@ -141,14 +150,14 @@ module Deepspace
     
     def protection
       factor = 1
-      @shieldsBoosters.each { |x|
+      @shieldBoosters.each { |x|
         factor *= x.useIt()
       }
       
       @shieldPower *factor
     end
     
-    def receiveShoot(shot)
+    def receiveShot(shot)
       myProtection = protection
       
       if myProtection >= shot
@@ -220,5 +229,8 @@ module Deepspace
       @pendingDamage = d.adjust(@weapons,@shieldsBoosters)
     end
     
+    def getUIversion
+      SpaceStationToUI.new(self)
+    end 
   end
 end

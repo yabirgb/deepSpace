@@ -24,8 +24,8 @@ module Deepspace
       EnemyStarShip.new(e.name, e.ammoPower, e.shieldPower, e.loot, e.damage)
     end
     
-    def UIversion
-      
+    def getUIversion
+      EnemyToUI.new(self)
     end
 
     def fire

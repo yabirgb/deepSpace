@@ -1,6 +1,3 @@
-require 'singleton'
-
-
 require_relative 'Dice'
 require_relative 'SpaceStation'
 require_relative 'GameStateController'
@@ -8,6 +5,7 @@ require_relative 'GameUniverseToUI'
 require_relative 'GameState'
 require_relative 'GameCharacter'
 require_relative 'ShotResult'
+require_relative 'CombatResult'
 require_relative 'Loot'
 
 module Deepspace
@@ -17,6 +15,7 @@ module Deepspace
       @WIN = 10
       @currentStationIndex = nil
       @gameState = GameStateController.new
+      @currentEnemy = nil
       @turns = 0
       @dice = Dice.new()
     end
@@ -46,19 +45,19 @@ module Deepspace
     end
     
     def discardShieldBoosterInHangar(i)
-      if getState == GameState::INIT or getState == GameState::AFTERCOMBAT
+      if state == GameState::INIT or state == GameState::AFTERCOMBAT
         @spaceStations[@currentStationIndex].discardShieldBoosterInHangar(i)
       end
     end
     
     def mountWeapon(i)
-      if getState == GameState::INIT or getState == GameState::AFTERCOMBAT
+      if state == GameState::INIT or state == GameState::AFTERCOMBAT
         @spaceStations[@currentStationIndex].mountWeapon(i)
       end
     end
     
     def mountShieldBooster(i)
-      if getState == GameState::INIT or getState == GameState::AFTERCOMBAT
+      if state == GameState::INIT or state == GameState::AFTERCOMBAT
         @spaceStations[@currentStationIndex].mountShieldBooster(i)
       end
     end
@@ -73,7 +72,7 @@ module Deepspace
       
     end
     
-    def getState
+    def state
       @gameState.state
     end
     
@@ -111,7 +110,7 @@ module Deepspace
     end
     
     def nextTurn
-      gameState = @gameState.getState
+      gameState = @gameState.state
       if gameState == GameState::AFTERCOMBAT
         stationState = currentStation.validState
         
@@ -133,9 +132,9 @@ module Deepspace
     end
     
     def combat
-      state = @gameState.getState
+      state = @gameState.state
       
-      if (state == GameState::BEFORECOMBAT) || (state == GameState.INIT)
+      if (state == GameState::BEFORECOMBAT) || (state == GameState::INIT)
         combatGo(@currentStation, @currentEnemy)
       else
         CombatResult::NOCOMBAT
@@ -145,15 +144,15 @@ module Deepspace
     
     def combatGo(station, enemy)
       
-      state = @gameState.getState
+      state = @gameState.state
       
-      if (state == GameState::BEFORECOMBAT) || (state == GameState.INIT)
+      if (state == GameState::BEFORECOMBAT) || (state == GameState::INIT)
       
         ch = @dice.firstShot
         
         #Establecemos el combate
         
-        if ch == GameCharacter.ENEMYSTARSHIP
+        if ch == GameCharacter::ENEMYSTARSHIP
           fire = enemy.fire
           result = station.receiveShot(fire)
           
