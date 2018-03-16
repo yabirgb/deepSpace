@@ -1,6 +1,4 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
+require_relative 'WeaponToUI'
 module Deepspace
   class Weapon
 
@@ -31,6 +29,12 @@ module Deepspace
       end
     end
     
+    def getUIversion
+      WeaponToUI.new(self)
+    end
     
+    def to_s
+      "Name: #{@name} - type: #{@type} - uses: #{@uses}"
+    end
   end
 end

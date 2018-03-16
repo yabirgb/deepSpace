@@ -5,17 +5,22 @@
 module Deepspace
   module WeaponType
     class Type
-      def initialize p
+      def initialize(p,s)
+        @name = s
         @power = p
       end
 
       def power
         @power
       end
+      
+      def to_s
+        "#{@name}"
+      end
     end
 
-    LASER = Type.new(2.0)
-    MISSILE = Type.new(3.0) 
-    PLASMA = Type.new(4.0)
+    LASER = Type.new(2.0, "LASER")
+    MISSILE = Type.new(3.0, "MISSILE") 
+    PLASMA = Type.new(4.0, "PLASMA")
   end
 end
