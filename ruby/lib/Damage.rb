@@ -58,7 +58,7 @@ module Deepspace
 
     def discardWeapon(w)
       #Si borramos pero no está nos devuelve nil
-      if defined? @weapons then
+      if @weapons != nil
         @weapons.delete(w)
       elsif @nWeapons > 0
         @nWeapons -= 1
@@ -78,7 +78,7 @@ module Deepspace
     end
     
     def to_s
-      "Weapons: #{@nWeapons}; Shields: #{@nShields}; Keep: #{@weapons}"
+      "nWeapons: #{@nWeapons}; Shields: #{@nShields}; Weapons #{@weapons}"
     end
 
   end
