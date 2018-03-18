@@ -103,7 +103,7 @@ module Deepspace
         
         @currentStationIndex = @dice.whoStarts(names.length)
         @currentStation = @spaceStations[@currentStationIndex]
-        @currentEnemy = dealer.nextEnemy()
+        @currentEnemy = dealer.nextEnemy
         @gameState.next(@turns, @spaceStations.length)
       end
       
@@ -186,10 +186,11 @@ module Deepspace
           combatResult=CombatResult::STATIONWINS
         end
         @gameState.next(@turns, @spaceStations.length)
-        combatResult
-        
-      end 
+        return combatResult
       
+      else
+        return CombatResult::NOCOMBAT
+      end 
     end
     
   end
