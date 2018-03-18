@@ -23,10 +23,6 @@ module Deepspace
     def newCopy(e)
       EnemyStarShip.new(e.name, e.ammoPower, e.shieldPower, e.loot, e.damage)
     end
-    
-    def getUIversion
-      EnemyToUI.new(self)
-    end
 
     def fire
       @ammoPower
@@ -38,18 +34,18 @@ module Deepspace
 
     def receiveShot(shot)
       if protection < shot
-        Deepspace::ShotResult::DONOTRESIST
+        return ShotResult::DONOTRESIST
       else  
-        Deepspace::ShotResult::RESIST
+        return ShotResult::RESIST
       end
     end
     
     def to_s
-      "Name: #{name}; Damage: #{damage}; Loot: #{loot}; AmmoPower: #{ammoPower}; ShieldPower: #{shieldPower} "
+      "Name: #{@name}; Damage: #{@damage}; Loot: #{@loot}; AmmoPower: #{@ammoPower}; ShieldPower: #{@shieldPower} "
     end
     
-    def UIVersion
-      EnemyToUI(self)
+    def getUIversion
+      EnemyToUI.new(self)
     end
     
   end

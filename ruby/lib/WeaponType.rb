@@ -18,6 +18,10 @@ module Deepspace
         "#{@name}"
       end
     end
+    
+    def to_s
+      "Weapon #{@name } with #{@power} units of power"
+    end 
 
     LASER = Type.new(2.0, "LASER")
     MISSILE = Type.new(3.0, "MISSILE") 
