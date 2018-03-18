@@ -13,7 +13,9 @@ require_relative 'Weapon'
 
 module Deepspace
   class SpaceStation
-    
+    @@MAXFUEL = 100
+    @@SHIELDLOSSPERUNITSHOT = 0.1
+     
     attr_reader :hangar
     attr_reader :ammoPower
     attr_reader :fuelUnits
@@ -30,15 +32,13 @@ module Deepspace
     attr_writer :loot
     
     def initialize(n, supplies)
-      @MAXFUEL = 100
-      @SHIELDLOSSPERUNITSHOT = 0.1
       @name = n
       @supplies = supplies
       @nMedals = 0
       @weapons = Array.new
       @shieldBoosters = Array.new
-      @ammoPower = 0
-      @shieldPower = 0
+      @ammoPower = supplies.ammoPower
+      @shieldPower = supplies.shieldPower
       @fuelUnits = 0
     end
     
@@ -95,7 +95,7 @@ module Deepspace
     end
     
     def speed
-      @fuelUnits*1.0/@MAXFUEL
+      @fuelUnits*1.0/@@MAXFUEL
     end
     
     def receiveSupplies(s)
@@ -155,12 +155,12 @@ module Deepspace
       myProtection = protection
       
       if myProtection >= shot
-        @shieldPower -= @SHIELDLOSSPERUNITSHOT*shot
+        @shieldPower -= @@SHIELDLOSSPERUNITSHOT*shot
         @shieldPower = [0, @shieldPower].max
-        ShotResult::RESIST
+        return ShotResult::RESIST
       else
         shieldPower = 0
-        ShotResult::DONOTRESIST
+        return ShotResult::DONOTRESIST
       end 
     end
     
