@@ -185,7 +185,7 @@ class CardDealer
         @enemies.add(EnemyStarShip.new("Enemigo difícil 1",100,200,goodLoot,hardSpecificDamage0));   
         
         @enemies.add(EnemyStarShip.new("Enemigo imposible",500,500,goodLoot,hardSpecificDamage0));       
-        @enemies.add(EnemyStarShip.new("Nave Falcon", 200, 40, 10, regularSpecificDamage0));
+        @enemies.add(EnemyStarShip.new("Nave Falcon", 200, 40, goodLoot, regularSpecificDamage0));
     end
 end # class
 
