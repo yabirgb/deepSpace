@@ -1,4 +1,6 @@
 require_relative 'HangarToUI'
+require_relative 'Weapon'
+require_relative 'ShieldBooster'
 
 module Deepspace
   class Hangar
@@ -16,15 +18,24 @@ module Deepspace
     end
 
     def newCopy(h)
-      Hangar.new(h.maxElements)
+      h = Hangar.new(h.maxElements)
+      weapons.each{|w|
+        h.addWeapon(Weapon.newCopy(w))
+      }
+      
+      shieldBoosters.each{|s|
+        h.addShieldBooster(ShieldBooster.newCopy(s))
+      }
+      
+      h  
     end
     
     def spaceAvailable
-        @maxElements - @weapons.length - @shieldBoosters.length
+        @maxElements - @weapons.length - @shieldBoosters.length > 0
     end
 
     def addWeapon(w)
-      if spaceAvailable > 0
+      if spaceAvailable
         @weapons.push(w)
         true
       else  
@@ -33,7 +44,7 @@ module Deepspace
     end
 
     def addShieldBooster(s)
-      if spaceAvailable > 0
+      if spaceAvailable
         @shieldBoosters.push(s)
         true
       else  
