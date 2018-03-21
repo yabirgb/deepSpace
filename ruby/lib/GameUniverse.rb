@@ -10,7 +10,7 @@ require_relative 'Loot'
 
 module Deepspace
   class GameUniverse
-    @@WIN = 10
+    @@WIN = 2
     
     def initialize()
       @currentStationIndex = nil
@@ -69,7 +69,6 @@ module Deepspace
       else  
         false
       end
-      
     end
     
     def state
