@@ -10,9 +10,9 @@ require_relative 'Loot'
 
 module Deepspace
   class GameUniverse
+    @@WIN = 10
     
     def initialize()
-      @WIN = 10
       @currentStationIndex = nil
       @gameState = GameStateController.new
       @currentEnemy = nil
@@ -64,7 +64,7 @@ module Deepspace
     
     
     def haveAWinner
-      if @spaceStations[@currentStationIndex].nMedals == @WIN
+      if @spaceStations[@currentStationIndex].nMedals == @@WIN
         true
       else  
         false
