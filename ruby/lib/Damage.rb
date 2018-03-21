@@ -35,10 +35,10 @@ module Deepspace
     
     
     def adjust(wl, sl)
-      w_min = Array.new([@nWeapons, wl.length].delete_if{|x| x == nil}).min
-      s_min = Array.new([@nShields, sl.length].delete_if{|x| x == nil}).min
+      w_min = Array.new([nWeapons, wl.length].delete_if{|x| x == nil}).min
+      s_min = Array.new([nShields, sl.length].delete_if{|x| x == nil}).min
       
-      if @weapons != nil
+      if weapons != nil
         aux = Array.new
         w_aux = Array.new(@weapons)
         
@@ -58,19 +58,23 @@ module Deepspace
 
     def discardWeapon(w)
       #Si borramos pero no está nos devuelve nil
-      if @weapons != nil
+      if weapons != nil
         @weapons.delete(w)
-      elsif @nWeapons > 0
+      elsif nWeapons > 0
         @nWeapons -= 1
       end 
     end
     
     def discardShieldBooster
-      @nShields -= 1 if @nShields > 0
+      @nShields -= 1 if nShields > 0
     end
     
     def hasNoEffect
-      @nShields == 0 && (@nWeapons == 0 || @weapons.length == 0)
+      if weapons != nil
+        nShields == 0 && weaponws.length == 0
+      else
+        nShields && nWeapons == 0
+      end
     end
 
     def getUIversion
@@ -78,8 +82,10 @@ module Deepspace
     end
     
     def to_s
-      "nWeapons: #{@nWeapons}; Shields: #{@nShields}; Weapons #{@weapons}"
+      "nWeapons: #{nWeapons}; Shields: #{nShields}; Weapons #{weapons}"
     end
+    
+    private_class_method :new
 
   end
 end
