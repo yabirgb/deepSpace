@@ -24,9 +24,7 @@ module Deepspace
     attr_reader :pendingDamage
     attr_reader :shieldBoosters
     attr_reader :weapons
-    attr_reader :shieldPower 
-    attr_reader :UIVersion
-    
+    attr_reader :shieldPower     
 
     attr_writer :pendingDamage
     attr_writer :loot
@@ -39,7 +37,7 @@ module Deepspace
       @shieldBoosters = Array.new
       @ammoPower = supplies.ammoPower
       @shieldPower = supplies.shieldPower
-      @fuelUnits = 0
+      @fuelUnits = supplies.fuelUnits
     end
     
     private
@@ -99,9 +97,12 @@ module Deepspace
     end
     
     def receiveSupplies(s)
-      if @fuelUnits != nil
-        @fuelUnits += s.fuelUnits
+      @fuelUnits += s.fuelUnits
+      if @fuelUnits > @@MAXFUEL
+        @fuelUnits = @@MAXFUEL
       end
+      @shieldPower += s.shieldPower
+      @ammoPower += s.ammoPower
     end
     
     def mountShieldBooster(i)
@@ -112,7 +113,7 @@ module Deepspace
     end
     
     def mountWeapon(i)
-      if @hangar != nil and i != -1
+      if @hangar != nil and i >= 0 and i < @hangar.weapons.length
         @weapons.push(Weapon.newCopy(@hangar.weapons[i]))
         @hangar.removeWeapon(i)
       end
