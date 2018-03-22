@@ -19,7 +19,7 @@ module Deepspace
     end
     
     def self.newSpecificWeapons(wl, s)
-      new(nil, s, wl)
+      new(-1, s, wl)
     end
 
     private
@@ -57,8 +57,8 @@ module Deepspace
 
     def discardWeapon(w)
       #Si borramos pero no está nos devuelve nil
-      if weapons != nil
-        @weapons.delete(w)
+      if weapons != -1
+        @weapons.delete(w.type)
       elsif nWeapons > 0
         @nWeapons -= 1
       end 
@@ -69,7 +69,7 @@ module Deepspace
     end
     
     def hasNoEffect
-      if weapons != nil
+      if weapons != -1
         nShields == 0 && weapons.length == 0
       else
         nShields && nWeapons == 0
