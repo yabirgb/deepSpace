@@ -11,11 +11,16 @@ module Deepspace
     def initialize(nweapons, nshields, wl)
       @nShields = nshields
       @nWeapons = nweapons
-      @weapons = wl
+      if wl != nil
+        @weapons = Array.new(wl)
+      else
+        @weapons = nil
+      end
+      
     end
 
     def self.newNumericWeapons(w, s)
-      new(w, s, nil)
+      new(w, s, [])
     end
     
     def self.newSpecificWeapons(wl, s)
@@ -57,7 +62,7 @@ module Deepspace
 
     def discardWeapon(w)
       #Si borramos pero no está nos devuelve nil
-      if weapons != -1
+      if weapons != nil
         @weapons.delete(w.type)
       elsif nWeapons > 0
         @nWeapons -= 1
@@ -69,10 +74,10 @@ module Deepspace
     end
     
     def hasNoEffect
-      if weapons != -1
+      if weapons != nil
         nShields == 0 && weapons.length == 0
       else
-        nShields && nWeapons == 0
+        nShields == 0 && nWeapons == 0
       end
     end
 
