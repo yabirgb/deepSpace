@@ -65,7 +65,7 @@ module Deepspace
     
     def haveAWinner
       if @spaceStations[@currentStationIndex].nMedals == @@WIN
-        return true
+        true
       else  
         false
       end
