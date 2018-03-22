@@ -4,9 +4,9 @@ require_relative 'WeaponType'
 module Deepspace
   class Damage
 
-    attr_reader :nShields
-    attr_reader :nWeapons
-    attr_reader :weapons
+    attr_reader :nShields # Número de escudos a descartar
+    attr_reader :nWeapons #Número de armas a descartar
+    attr_reader :weapons #Vector de weaponType
 
     def initialize(nweapons, nshields, wl)
       @nShields = nshields
@@ -30,33 +30,38 @@ module Deepspace
     private
     
     def arrayContainsType(w, t)
-      pos = w.index{|x| x.weapon.getType() == t}
-      if pos == nil
-        -1
+      index=-1
+      for i in (0...w.length) do
+        if(t == w[i].type)
+          index = i
+          break
+        end
       end
+      return index
     end
 
     public
     
     
     def adjust(wl, sl)
-      w_min = Array.new([nWeapons, wl.length].delete_if{|x| x == nil}).min
-      s_min = [nShields, sl.length].min
-      
-      if weapons != nil
-        aux = Array.new
-        w_aux = Array.new(@weapons)
+      #wl tiene las armas de la nave
+      #sl tiene los escudos de la nave
+      if nWeapons == -1
         
-        wl.each{|w|
-          if w_aux.include?(w.type)
-            aux.push(w_aux.delete_at(w_aux.index(w.type)))
+        result = Array.new
+        toRemove = Array.new(weapons)
+        
+        wl.each{|weapon|
+          if toRemove.include?(weapon.type)
+            result.push(weapon.type)
+            toRemove.delete_at(toRemove.index(weapon.type))
           end
         }
         
-        return Damage.newSpecificWeapons(aux, s_min)
+        Damage.newSpecificWeapons(result, [nShields,sl.length].min) 
+      else
+        Damage.newNumericWeapons([nWeapons,wl.length].min, [nShields,sl.length].min)
       end
-      
-      Damage.newNumericWeapons(w_min, s_min)
     end
 
 
