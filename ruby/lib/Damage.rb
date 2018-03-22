@@ -36,18 +36,17 @@ module Deepspace
     
     def adjust(wl, sl)
       w_min = Array.new([nWeapons, wl.length].delete_if{|x| x == nil}).min
-      s_min = Array.new([nShields, sl.length].delete_if{|x| x == nil}).min
+      s_min = [nShields, sl.length].min
       
       if weapons != nil
         aux = Array.new
         w_aux = Array.new(@weapons)
         
-        for i in 0...wl.length
-          if w_aux.include?(wl[i].type)
-            aux.push(wl[i].type)
-            w_aux.delete(wl[i].type)
+        wl.each{|w|
+          if w_aux.include?(w.type)
+            aux.push(w_aux.delete_at(w_aux.index(w.type)))
           end
-        end
+        }
         
         return Damage.newSpecificWeapons(aux, s_min)
       end
@@ -71,7 +70,7 @@ module Deepspace
     
     def hasNoEffect
       if weapons != nil
-        nShields == 0 && weaponws.length == 0
+        nShields == 0 && weapons.length == 0
       else
         nShields && nWeapons == 0
       end
