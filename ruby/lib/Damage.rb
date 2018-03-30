@@ -1,3 +1,4 @@
+# coding: utf-8
 require_relative 'DamageToUI'
 require_relative 'WeaponType'
 
@@ -27,22 +28,11 @@ module Deepspace
       new(-1, s, wl)
     end
 
-    private
-    
-    def arrayContainsType(w, t)
-      index=-1
-      for i in (0...w.length) do
-        if(t == w[i].type)
-          index = i
-          break
-        end
-      end
-      return index
+    def getUIversion
+      DamageToUI.new(self)
     end
 
-    public
-    
-    
+        
     def adjust(wl, sl)
       #wl tiene las armas de la nave
       #sl tiene los escudos de la nave
@@ -63,7 +53,17 @@ module Deepspace
         Damage.newNumericWeapons([nWeapons,wl.length].min, [nShields,sl.length].min)
       end
     end
-
+        
+    def arrayContainsType(w, t)
+      index=-1
+      for i in (0...w.length) do
+        if(t == w[i].type)
+          index = i
+          break
+        end
+      end
+      return index
+    end    
 
     def discardWeapon(w)
       #Si borramos pero no está nos devuelve nil
@@ -86,15 +86,11 @@ module Deepspace
       end
     end
 
-    def getUIversion
-      DamageToUI.new(self)
-    end
-    
     def to_s
       "nWeapons: #{nWeapons}; Shields: #{nShields}; Weapons #{weapons}"
     end
     
     private_class_method :new
-
+    private :adjust, :arrayContainsType
   end
 end
