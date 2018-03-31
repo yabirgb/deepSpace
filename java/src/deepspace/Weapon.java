@@ -22,7 +22,7 @@ public class Weapon {
     }
     
     //This one doesn't appear in the project guide.
-    private WeaponType getType() {
+    public WeaponType getType() {
         return type;
     }
 
@@ -30,7 +30,7 @@ public class Weapon {
         return uses;
     }
     
-    public float getPower(){
+    public float power(){
         return type.getPower();
     }
     

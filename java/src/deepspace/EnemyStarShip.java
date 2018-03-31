@@ -13,7 +13,7 @@ class EnemyStarShip implements Copyable<EnemyStarShip> {
 	name = n;
 	ammoPower = a;
 	shieldPower = s;
-	loot = new Loot(l);
+	loot = new Loot(l.getNSupplies(), l.getNWeapons(), l.getNShields(), l.getNHangars(), l.getNMedals());
 	damage = new Damage(d);
     }
 
@@ -60,6 +60,11 @@ class EnemyStarShip implements Copyable<EnemyStarShip> {
 	else{
 	    return ShotResult.RESIST;
 	}
+    }
+
+    @Override
+    public EnemyStarShip copy() {
+        return new EnemyStarShip(this);
     }
 
 }

@@ -27,6 +27,10 @@ public class Hangar implements Copyable<Hangar> {
             shieldBoosters.add(new ShieldBooster(s));
         }
     }
+
+    HangarToUI getUIversion(){
+	return new HangarToUI(this);
+    }
     
     private boolean spaceAvailable(){
         return getMaxElements() - weapons.size() - shieldBoosters.size() > 0;
@@ -50,7 +54,6 @@ public class Hangar implements Copyable<Hangar> {
         return false;
     }
     
-    
     public int getMaxElements(){
         return maxElements;
     }
@@ -62,7 +65,24 @@ public class Hangar implements Copyable<Hangar> {
     public ArrayList<Weapon> getWeapons(){
         return weapons;
     }
-    
-    
+
+    ShieldBooster removeShieldBooster( int s ){
+	if (s >= 0 && s < shieldBoosters.size())
+	    return shieldBoosters.remove(s);
+        
+        return null;
+    }
+
+    Weapon removeWeapon(int w){
+	if (w >= 0 && w < weapons.size())
+	    return weapons.remove(w);
+        
+        return null;
+    }
+
+    @Override
+    public Hangar copy() {
+        return new Hangar(this);
+    }
     
 }

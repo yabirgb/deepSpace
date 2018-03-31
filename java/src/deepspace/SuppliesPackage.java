@@ -23,7 +23,7 @@ public class SuppliesPackage {
     SuppliesPackage(SuppliesPackage s){
         this.ammoPower = s.getAmmoPower();
         this.fuelUnits = s.getFuelUnits();
-        this.shieldPower = s.getShieldsPower();
+        this.shieldPower = s.getShieldPower();
     }
 
     public float getAmmoPower() {
@@ -34,7 +34,7 @@ public class SuppliesPackage {
         return fuelUnits;
     }
 
-    public float getShieldsPower() {
+    public float getShieldPower() {
         return shieldPower;
     }
 }   

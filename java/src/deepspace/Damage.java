@@ -2,7 +2,7 @@ package deepspace;
 import java.util.ArrayList;
 import java.lang.Math;
 
-public class Damage implement Copyable<Hangar>{
+class Damage{
 
 
     private int nShields;
@@ -25,7 +25,7 @@ public class Damage implement Copyable<Hangar>{
         this(w, s, null);
     }
 
-    Damage(ArrayList<WeaponType> wl, s int){
+    Damage(ArrayList<WeaponType> wl, int s){
 	this(-1, s, wl);
     }
 
@@ -37,33 +37,35 @@ public class Damage implement Copyable<Hangar>{
 	this(d.getNWeapons(), d.getNShields(), d.getWeapons());
     }
 
-    private Damage adjust(ArrayList<Weapon> wl,  ArrayList<ShieldBooster> sl){
+    public Damage adjust(ArrayList<Weapon> wl,  ArrayList<ShieldBooster> sl){
 
 	if (nWeapons == -1){
-	    result = new ArrayList<WeaponType>;
-	    toRemove = new ArrayList<>(wl);
+	    ArrayList<WeaponType> result = new ArrayList<WeaponType>();
+	    ArrayList<Weapon> toRemove = new ArrayList<>(wl);
 
-	    for (WeaponType weapon: wl){
-		if (arrayContainsType(toRemove, weapon)){
+	    for (Weapon weapon: wl){
+		if (arrayContainsType(toRemove, weapon.getType()) != -1){
 		    result.add(weapon.getType());
 		    toRemove.remove(weapon.getType());
 		}
 	    }
+            
+            return new Damage(result, Math.min(getNShields(), sl.size()));
 	}
 	else{
-	    new Damage(Math.min(getNWeapons(), wl.size() ), Math.min(getNShields(), sl.size() ))
+	    return new Damage(Math.min(getNWeapons(), wl.size() ), Math.min(getNShields(), sl.size() ));
 	}
 	
     }
 
-    private arrayContainsType(ArrayList<Weapon> w, WeaponType t){
+    private int arrayContainsType(ArrayList<Weapon> w, WeaponType t){
 	boolean done = false;
 	int position = -1;
 
 	for (int i =0; i < w.size() && !done ; i++){
 	    if (w.get(i).getType() == t){
 		position = i;
-		found = true;
+		done = true;
 	    }
 	}
 
@@ -72,11 +74,11 @@ public class Damage implement Copyable<Hangar>{
     }
 
     public void discardWeapon(Weapon w){
-	if (weapons != nil){
-	    weapons.remove(w.getYpe());
+	if (weapons != null){
+	    weapons.remove(w.getType());
 	}
 	else if (getNWeapons() > 0){
-	    weapons -= 1;
+	    nWeapons -= 1;
 	}
     }
 
@@ -86,9 +88,9 @@ public class Damage implement Copyable<Hangar>{
 	}
     }
 
-    public hasNoEffect(){
-	if (weapons != nill){
-	    return nShields == 0 && weapons.size() == 0;
+    public boolean hasNoEffect(){
+	if (weapons != null){
+	    return nShields == 0 && weapons.isEmpty();
 	}
 	else{
 	    return nShields == 0 && nWeapons == 0;
