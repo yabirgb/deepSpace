@@ -1,12 +1,7 @@
-require_relative 'Damage'
-require_relative 'Hangar'
-require_relative 'SuppliesPackage'
-require_relative 'ShotResult'
-require_relative 'CardDealer'
 require_relative 'SpaceStationToUI'
-require_relative 'Loot'
-require_relative 'Weapon'
-
+require_relative 'ShieldBooster'
+require_relative 'Hangar'
+require_relative 'CardDealer'
     
 #When a attribute doesn't exists we get nil trying to get.
 #On set it works as expected
@@ -37,27 +32,80 @@ module Deepspace
       @shieldBoosters = Array.new
       @ammoPower = supplies.ammoPower
       @shieldPower = supplies.shieldPower
-      @fuelUnits = supplies.fuelUnits
+      assignFuelValue(supplies.fuelUnits)
     end
     
-    private
     def assignFuelValue(f)
-      @fuelUnits = f
+      if f < @@MAXFUEL
+        @fuelUnits = f
+      else
+        @fuelUnits == @@MAXFUEL
+      end
     end
     
     def cleanPendingDamage
       #We have to check if exits because if it's nil we are doing nil.hasNoEffect
-      @pendingDamage = nil if @pendingDamage.hasNoEffect
+      @pendingDamage = nil if @pendingDamage != nil && @pendingDamage.hasNoEffect
     end
+
+    # =================
+    # Discard things
+    # =================
     
-    public
-    
+    def discardShieldBooster(i)
+      size = @shieldBoosters.length
+      
+      if i >= 0 && i < size
+        @shieldBoosters.delete_at(i)
+        if @pendingDamage != nil
+          @pendingDamage.discardShieldBooster
+          cleanPendingDamage
+        end
+      end
+    end
+        
     def discardShieldBoosterInHangar(i)
       @hangar.removeShieldBooster(i) if hangar != nil
+    end
+
+    def discardWeapon(i)
+      size = @weapons.length
+      if i >= 0 && i < size
+        w = @weapons.delete_at(i)
+        if @pendingDamage != nil
+          @pendingDamage.discardWeapon(w)
+          cleanPendingDamage
+        end
+      end
     end
     
     def discardWeaponInHangar(i)
       @hangar.removeWeapon(i) if hangar != nil
+    end
+
+    # =================
+    # Receive things
+    # =================
+
+    def fire
+      factor = 1
+      @weapons.each{|x|
+        factor *= x.useIt
+      }
+      
+      factor*@ammoPower
+    end
+
+    def mountShieldBooster(i)
+      if @hangar != nil && i >= 0 && i < @hangar.shieldBoosters.length
+        @shieldBoosters.push(ShieldBooster.newCopy(@hangar.removeShieldBooster(i)))  
+      end
+    end
+    
+    def mountWeapon(i)
+      if @hangar != nil && i >= 0 && i < @hangar.weapons.length
+        @weapons.push(Weapon.newCopy(@hangar.removeWeapon(i)))
+      end
     end
     
     def receiveWeapon(w)
@@ -78,7 +126,7 @@ module Deepspace
     
     def receiveHangar(h)
       if @hangar == nil
-        @hangar = h
+        @hangar = Hangar.new(h)
       end
     end
     
@@ -105,42 +153,13 @@ module Deepspace
       @ammoPower += s.ammoPower
     end
     
-    def mountShieldBooster(i)
-      if @hangar != nil && i >= 0 && i < @hangar.shieldBoosters.length
-        @shieldBoosters.push(ShieldBooster.newCopy(@hangar.shieldBoosters[i]))
-        @hangar.removeShieldBooster(i)
-      end
-    end
-    
-    def mountWeapon(i)
-      if @hangar != nil && i >= 0 && i < @hangar.weapons.length
-        @weapons.push(Weapon.newCopy(@hangar.weapons[i]))
-        @hangar.removeWeapon(i)
-      end
-    end
-    
     def validState
       @pendingDamage == nil || @pendingDamage.hasNoEffect
-    end
-    
-    def receiveSupplies(s)
-      @ammoPower += s.ammoPower
-      @fuelUnits += s.fuelUnits
-      @shieldPower += s.shieldPower
     end
     
     def cleanUpMountedItems
       @shieldBoosters.delete_if{|x| x.uses == 0}
       @weapons.delete_if{|x| x.uses == 0}
-    end
-    
-    def fire
-      factor = 1
-      @weapons.each{|x|
-        factor *= x.useIt
-      }
-      
-      factor*@ammoPower
     end
     
     def protection
@@ -189,40 +208,15 @@ module Deepspace
       @nMedals += loot.nMedals
       
     end
-    
-    def discardWeapon(i)
-      size = @weapons.length
-      
-      if i >= 0 && i < size
-        w = @weapons.delete_at(i)
-        
-        if @pendingDamage != nil
-          @pendingDamage.discardWeapon(w)
-          cleanPendingDamage
-        end
-        
-      end
-      
-    end
-    
-    def discardShieldBooster(i)
-      size = @shieldBoosters.length
-      
-      if i >= 0 && i < size
-        @shieldBoosters.delete_at(i)
-        
-        @pendingDamage.discardShieldBooster
-        cleanPendingDamage
-      end
-        
-    end
-          
+         
     def setPendingDamage(d)
       @pendingDamage = d.adjust(@weapons,@shieldBoosters)
     end
     
     def getUIversion
       SpaceStationToUI.new(self)
-    end 
+    end
+
+    private :assignFuelValue, :cleanPendingDamage
   end
 end
