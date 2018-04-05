@@ -144,7 +144,7 @@ class SpaceStation{
             hangar = new Hangar(h);
     }
     
-    public boolean receiveShieldBoosters(ShieldBooster s){
+    public boolean receiveShieldBooster(ShieldBooster s){
         if (hangar != null)
             return hangar.addShieldBooster(s);
         else
@@ -181,21 +181,37 @@ class SpaceStation{
             return false;
     }
     
-    public void setPendingDamage(Damage d){
-        pendingDamage = d.adjust(weapons, shieldBoosters);
-    }
-    
     public void setLoot(Loot loot){
         CardDealer dealer = CardDealer.getInstance();
         
         int h = loot.getNHangars();
             
         if (h > 0){
-        
+            hangar = dealer.nextHangar();
+            receiveHangar(dealer.nextHangar());
         }
-        //Complete
+        
+        for(int i = 0; i < loot.getNSupplies(); i++){
+            receiveSupplies(dealer.nextSuppliesPackage());
+        }
+        
+        for(int i = 0; i < loot.getNShields(); i++){
+            receiveShieldBooster(dealer.nextShieldBooster());
+        }
+        
+        for(int i = 0; i < loot.getNWeapons(); i++){
+            receiveWeapon(dealer.nextWeapon());
+        }
+        
+        nMedals += loot.getNMedals();   
     }
     
+    public void setPendingDamage(Damage d){
+        pendingDamage = d.adjust(weapons, shieldBoosters);
+    }
     
+    public boolean validState(){
+        return pendingDamage == null || pendingDamage.hasNoEffect();
+    }
     
 }
