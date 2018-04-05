@@ -1,6 +1,6 @@
 package deepspace;
 
-public class Weapon {
+public class Weapon implements Copyable<Weapon>{
     private String name;
     private WeaponType type;
     private int uses;
@@ -30,7 +30,7 @@ public class Weapon {
         return uses;
     }
     
-    public float power(){
+    public float getPower(){
         return type.getPower();
     }
     
@@ -40,5 +40,10 @@ public class Weapon {
             return getPower();
         }else
             return 1.0f;
+    }
+
+    @Override
+    public Weapon copy() {
+        return new Weapon(this);
     }
 }

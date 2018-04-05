@@ -9,7 +9,7 @@ package deepspace;
  *
  * @author yabir
  */
-public class SuppliesPackage {
+public class SuppliesPackage implements Copyable<SuppliesPackage> {
     private float ammoPower;
     private float fuelUnits;
     private float shieldPower;
@@ -36,5 +36,10 @@ public class SuppliesPackage {
 
     public float getShieldPower() {
         return shieldPower;
+    }
+    
+    @Override
+    public SuppliesPackage copy(){
+        return new SuppliesPackage(this);
     }
 }   
