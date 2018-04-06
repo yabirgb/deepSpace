@@ -64,11 +64,7 @@ module Deepspace
     
     
     def haveAWinner
-      if @spaceStations[@currentStationIndex].nMedals == @@WIN
-        true
-      else  
-        false
-      end
+      @spaceStations[@currentStationIndex].nMedals == @@WIN
     end
     
     def state
@@ -80,7 +76,6 @@ module Deepspace
     end
     
     def init(names)
-      state = @gameState.state
       
       if state == GameState::CANNOTPLAY
         @spaceStations = Array.new
