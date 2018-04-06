@@ -21,31 +21,31 @@ module Deepspace
     end
     
     def discardHangar
-      if @gameState.state == GameState::INIT or @gameState.state == GameState::AFTERCOMBAT
+      if @gameState.state == GameState::INIT || @gameState.state == GameState::AFTERCOMBAT
         @spaceStations[@currentStationIndex].discardHangar
       end
     end
     
     def discardWeapon(i)
-      if @gameState.state == GameState::INIT or @gameState.state == GameState::AFTERCOMBAT
+      if @gameState.state == GameState::INIT || @gameState.state == GameState::AFTERCOMBAT
         @spaceStations[@currentStationIndex].discardWeapon(i)
       end
     end
     
     def discardWeaponInHangar(i)
-      if @gameState.state == GameState::INIT or @gameState.state == GameState::AFTERCOMBAT
+      if @gameState.state == GameState::INIT || @gameState.state == GameState::AFTERCOMBAT
         @spaceStations[@currentStationIndex].discardWeaponInHangar(i)
       end
     end
     
     def discardShieldBooster(i)
-      if @gameState.state == GameState::INIT or @gameState.state == GameState::AFTERCOMBAT
+      if @gameState.state == GameState::INIT || @gameState.state == GameState::AFTERCOMBAT
         @spaceStations[@currentStationIndex].discardShieldBooster(i)
       end
     end
     
     def discardShieldBoosterInHangar(i)
-      if state == GameState::INIT or state == GameState::AFTERCOMBAT
+      if state == GameState::INIT || state == GameState::AFTERCOMBAT
         @spaceStations[@currentStationIndex].discardShieldBoosterInHangar(i)
       end
     end
@@ -57,7 +57,7 @@ module Deepspace
     end
     
     def mountShieldBooster(i)
-      if state == GameState::INIT or state == GameState::AFTERCOMBAT
+      if state == GameState::INIT || state == GameState::AFTERCOMBAT
         @spaceStations[@currentStationIndex].mountShieldBooster(i)
       end
     end
