@@ -44,11 +44,56 @@ class SpaceStation{
 	if (pendingDamage != null && pendingDamage.hasNoEffect())
 	    pendingDamage = null;
     }
-
+    
+    public void cleanUpMountedItems(){
+        shieldBoosters.removeIf(x->x.getUses() == 0);
+        shieldBoosters.removeIf(x->x.getUses() == 0);
+    }
 
     // =================
     // Discard things
     // =================
+    
+    public float getShieldPower(){
+        return shieldPower;
+    }
+    
+    public int getNMedals(){
+        return nMedals;
+    }
+    
+    public SpaceStationToUI getUIversion(){
+        return new SpaceStationToUI(this);
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public Hangar getHangar(){
+        return hangar;
+    }
+    
+    public float getFuelUnits(){
+        return fuelUnits;
+    }
+    
+    public float getAmmoPower(){
+        return ammoPower;
+    }
+    
+    public Damage getPendingDamage(){
+        return pendingDamage;
+    }
+    
+    public ArrayList<Weapon> getWeapons(){
+        return weapons;
+    }
+    
+    public ArrayList<ShieldBooster> getShieldBooster(){
+        return shieldBoosters;
+    }
+    
     
     public void discardHangar(){
 	hangar = null;
@@ -99,7 +144,10 @@ class SpaceStation{
     // =================
     // getters
     // =================
-
+    
+    public int getNMedals(){
+        return nMedals;
+    }
     
 
     
