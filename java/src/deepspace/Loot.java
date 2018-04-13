@@ -44,6 +44,10 @@ public class Loot implements Copyable<Loot> {
         return nMedals;
     }
     
+    public LootToUI getUIversion(){
+        return new LootToUI(this);
+    }
+    
     @Override
     public Loot copy(){
         return new Loot(this.getNSupplies(), this.getNWeapons(), this.getNShields(), this.getNHangars(), this.getNMedals() ); 

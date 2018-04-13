@@ -68,6 +68,10 @@ public class ShieldBooster implements Copyable<ShieldBooster> {
             return 1.0f;
     }
     
+    public ShieldToUI getUIversion(){
+        return new ShieldToUI(this);
+    }
+    
     @Override
     public ShieldBooster copy(){
         return new ShieldBooster(this);

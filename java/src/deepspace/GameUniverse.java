@@ -19,7 +19,7 @@ public class GameUniverse {
     private GameStateController gameState = new GameStateController();
     private CardDealer dealer;
     
-    GameUniverse(){
+    public GameUniverse(){
         turns = 0;
     }
     

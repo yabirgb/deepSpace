@@ -90,7 +90,7 @@ class SpaceStation{
         return weapons;
     }
     
-    public ArrayList<ShieldBooster> getShieldBooster(){
+    public ArrayList<ShieldBooster> getShieldBoosters(){
         return shieldBoosters;
     }
     
@@ -144,12 +144,6 @@ class SpaceStation{
     // =================
     // getters
     // =================
-    
-    public int getNMedals(){
-        return nMedals;
-    }
-    
-
     
     public float getSpeed(){
         return fuelUnits/MAXFUEL;
