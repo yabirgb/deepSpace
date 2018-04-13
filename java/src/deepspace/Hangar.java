@@ -17,7 +17,9 @@ public class Hangar implements Copyable<Hangar> {
     }
     
     Hangar(Hangar h){
-        h = new Hangar(h.getMaxElements());
+        maxElements = h.getMaxElements();
+        weapons = new ArrayList<>();
+        shieldBoosters = new ArrayList<>();
         
         for (Weapon w: h.getWeapons()){
             weapons.add(new Weapon(w));

@@ -225,11 +225,8 @@ class SpaceStation{
     
     public void setLoot(Loot loot){
         CardDealer dealer = CardDealer.getInstance();
-        
-        int h = loot.getNHangars();
-            
-        if (h > 0){
-            hangar = dealer.nextHangar();
+                    
+        if (loot.getNHangars() > 0){
             receiveHangar(dealer.nextHangar());
         }
         

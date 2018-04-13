@@ -30,16 +30,20 @@ public class Weapon implements Copyable<Weapon>{
         return uses;
     }
     
-    public float getPower(){
+    public float power(){
         return type.getPower();
     }
     
     public float useIt(){
         if (uses > 0){
             uses--;
-            return getPower();
+            return power();
         }else
             return 1.0f;
+    }
+    
+    public WeaponToUI getUIversion(){
+        return new WeaponToUI(this);
     }
 
     @Override

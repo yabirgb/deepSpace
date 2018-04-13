@@ -60,8 +60,7 @@ public class GameUniverse {
             }
             
             if (enemyWins){
-                float s = station.getSpeed();
-                boolean moves = dice.spaceStationMoves(s);
+                boolean moves = dice.spaceStationMoves(station.getSpeed());
                 
                 if (moves){
                     station.move();
@@ -69,7 +68,7 @@ public class GameUniverse {
                 }else{
                     Damage damage = enemy.getDamage();
                     station.setPendingDamage(damage);
-                    combatResult = CombatResult.STATIONWINS;
+                    combatResult = CombatResult.ENEMYWINS;
                 }
             }
             
