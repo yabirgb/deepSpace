@@ -17,7 +17,7 @@ module Deepspace
       @shieldBoosters = Array.new()
     end
 
-    def newCopy(h)
+    def self.newCopy(h)
       h = Hangar.new(h.maxElements)
       weapons.each{|w|
         h.addWeapon(Weapon.newCopy(w))
@@ -31,7 +31,7 @@ module Deepspace
     end
     
     def spaceAvailable
-        @maxElements - @weapons.length - @shieldBoosters.length > 0
+      maxElements > weapons.length + shieldBoosters.length
     end
 
     def addWeapon(w)
