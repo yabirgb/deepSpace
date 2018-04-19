@@ -31,16 +31,19 @@ module Deepspace
       @weapons = Array.new
       @shieldBoosters = Array.new
       @ammoPower = supplies.ammoPower
-      @fuelUnits = 0
       @shieldPower = supplies.shieldPower
       assignFuelValue(supplies.fuelUnits)
     end
     
     def assignFuelValue(f)
-      if f < @@MAXFUEL
-        @fuelUnits = f
+      if f == nil
+        @fuelUnits = 0
       else
-        @fuelUnits == @@MAXFUEL
+        if f < @@MAXFUEL
+          @fuelUnits = f
+        else
+          @fuelUnits == @@MAXFUEL
+        end
       end
     end
     
