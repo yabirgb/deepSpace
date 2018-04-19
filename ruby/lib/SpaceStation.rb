@@ -31,6 +31,7 @@ module Deepspace
       @weapons = Array.new
       @shieldBoosters = Array.new
       @ammoPower = supplies.ammoPower
+      @fuelUnits = 0
       @shieldPower = supplies.shieldPower
       assignFuelValue(supplies.fuelUnits)
     end
@@ -189,7 +190,7 @@ module Deepspace
       h = loot.nHangars
       
       if h > 0
-        hangar = dealer.nextHangar
+        @hangar = dealer.nextHangar
         receiveHangar(dealer.nextHangar)
       end
       
