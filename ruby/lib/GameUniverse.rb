@@ -135,56 +135,49 @@ module Deepspace
     
     def combatGo(station, enemy)
       
-      state = @gameState.state
+      ch = @dice.firstShot
       
-      if (state == GameState::BEFORECOMBAT) || (state == GameState::INIT)
+      #Establecemos el combate
       
-        ch = @dice.firstShot
+      if ch == GameCharacter::ENEMYSTARSHIP
+        fire = enemy.fire
+        result = station.receiveShot(fire)
         
-        #Establecemos el combate
-        
-        if ch == GameCharacter::ENEMYSTARSHIP
-          fire = enemy.fire
-          result = station.receiveShot(fire)
-          
-          if result == ShotResult::RESIST
-            fire = station.fire
-            result = enemy.receiveShot(fire)
-            enemyWins = result == ShotResult::RESIST
-          else  
-            enemyWins = true
-          end
-        else
+        if result == ShotResult::RESIST
           fire = station.fire
           result = enemy.receiveShot(fire)
-          enemyWins = result==ShotResult::RESIST
+          enemyWins = result == ShotResult::RESIST
+        else  
+          enemyWins = true
         end
-        
-        #Analizamos resultado del combate
-        
-        if enemyWins
-          s = station.speed
-          moves = @dice.spaceStationMoves(s)
-          
-          if moves 
-            station.move
-            combatResult=CombatResult::STATIONESCAPES
-          else
-            damage = enemy.damage
-            station.setPendingDamage(damage)
-            combatResult=CombatResult::ENEMYWINS
-          end
-        else
-          aLoot = enemy.loot
-          station.setLoot(aLoot)
-          combatResult=CombatResult::STATIONWINS
-        end
-        @gameState.next(@turns, @spaceStations.length)
-        return combatResult
-      
       else
-        return CombatResult::NOCOMBAT
-      end 
+        fire = station.fire
+        result = enemy.receiveShot(fire)
+        enemyWins = result==ShotResult::RESIST
+      end
+      
+      #Analizamos resultado del combate
+      
+      if enemyWins
+        s = station.speed
+        moves = @dice.spaceStationMoves(s)
+        
+        if moves 
+          station.move
+          combatResult=CombatResult::STATIONESCAPES
+        else
+          damage = enemy.damage
+          station.setPendingDamage(damage)
+          combatResult=CombatResult::ENEMYWINS
+        end
+      else
+        aLoot = enemy.loot
+        station.setLoot(aLoot)
+        combatResult=CombatResult::STATIONWINS
+      end
+      @gameState.next(@turns, @spaceStations.length)
+      return combatResult
+      
     end
     
   end
