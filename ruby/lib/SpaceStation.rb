@@ -130,7 +130,7 @@ module Deepspace
     
     def receiveHangar(h)
       if @hangar == nil
-        @hangar = Hangar.new(h)
+        @hangar = Hangar.newCopy(h)
       end
     end
     
@@ -220,7 +220,18 @@ module Deepspace
     def getUIversion
       SpaceStationToUI.new(self)
     end
-
+    
+    def to_s
+      out="Space Station:\n-Name: #{@name}"
+      out+="\n-Medals: #{@nMedals}, Fuel units: #{@fuelUnits.round(2)}, Power: #{@ammoPower}, Shields: #{@shieldPower}"
+      out+="\n-Weapons: [#{@weapons.join(', ')}]\n"
+      out+="\n-ShieldBooster: [#{@shieldBoosters.join(', ')}]\n"
+      out+="\n-Hangars: #{@hangar}\n"
+      out+="\n-PendingDamage: #{@pendingDamage}\n" 
+      out+="------- end of Space Station >> #{@name} << -------"
+      return out
+    end
+  
     private :assignFuelValue, :cleanPendingDamage
   end
 end

@@ -68,6 +68,9 @@ module Deepspace
       HangarToUI.new(self)
     end
     
+    def to_s
+      return "Max Elements: #{@maxElements}, Weapons: [#{@weapons.join(", ")}], Shields: [#{@shieldBoosters.join(", ")}]"
+    end
     private :spaceAvailable
 
   end
