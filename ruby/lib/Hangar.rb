@@ -17,21 +17,21 @@ module Deepspace
       @shieldBoosters = Array.new()
     end
 
-    def newCopy(h)
-      h = Hangar.new(h.maxElements)
-      weapons.each{|w|
-        h.addWeapon(Weapon.newCopy(w))
+    def self.newCopy(h)
+      c = Hangar.new(h.maxElements)
+      h.weapons.each{|w|
+        c.addWeapon(Weapon.newCopy(w))
       }
       
-      shieldBoosters.each{|s|
-        h.addShieldBooster(ShieldBooster.newCopy(s))
+      h.shieldBoosters.each{|s|
+        c.addShieldBooster(ShieldBooster.newCopy(s))
       }
       
-      h  
+      c  
     end
     
     def spaceAvailable
-        @maxElements - @weapons.length - @shieldBoosters.length > 0
+      maxElements > weapons.length + shieldBoosters.length
     end
 
     def addWeapon(w)
@@ -68,6 +68,9 @@ module Deepspace
       HangarToUI.new(self)
     end
     
+    def to_s
+      return "Max Elements: #{@maxElements}, Weapons: [#{@weapons.join(", ")}], Shields: [#{@shieldBoosters.join(", ")}]"
+    end
     private :spaceAvailable
 
   end

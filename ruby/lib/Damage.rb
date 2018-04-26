@@ -91,6 +91,7 @@ module Deepspace
     end
     
     private_class_method :new
-    private :adjust, :arrayContainsType
+    public :adjust
+    private :arrayContainsType
   end
 end

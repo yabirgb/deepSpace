@@ -36,10 +36,14 @@ module Deepspace
     end
     
     def assignFuelValue(f)
-      if f < @@MAXFUEL
-        @fuelUnits = f
+      if f == nil
+        @fuelUnits = 0
       else
-        @fuelUnits == @@MAXFUEL
+        if f < @@MAXFUEL
+          @fuelUnits = f
+        else
+          @fuelUnits == @@MAXFUEL
+        end
       end
     end
     
@@ -126,7 +130,7 @@ module Deepspace
     
     def receiveHangar(h)
       if @hangar == nil
-        @hangar = Hangar.new(h)
+        @hangar = Hangar.newCopy(h)
       end
     end
     
@@ -189,7 +193,7 @@ module Deepspace
       h = loot.nHangars
       
       if h > 0
-        hangar = dealer.nextHangar
+        @hangar = dealer.nextHangar
         receiveHangar(dealer.nextHangar)
       end
       
@@ -216,7 +220,18 @@ module Deepspace
     def getUIversion
       SpaceStationToUI.new(self)
     end
-
+    
+    def to_s
+      out="Space Station:\n-Name: #{@name}"
+      out+="\n-Medals: #{@nMedals}, Fuel units: #{@fuelUnits.round(2)}, Power: #{@ammoPower}, Shields: #{@shieldPower}"
+      out+="\n-Weapons: [#{@weapons.join(', ')}]\n"
+      out+="\n-ShieldBooster: [#{@shieldBoosters.join(', ')}]\n"
+      out+="\n-Hangars: #{@hangar}\n"
+      out+="\n-PendingDamage: #{@pendingDamage}\n" 
+      out+="------- end of Space Station >> #{@name} << -------"
+      return out
+    end
+  
     private :assignFuelValue, :cleanPendingDamage
   end
 end

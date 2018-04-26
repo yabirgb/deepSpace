@@ -27,7 +27,7 @@ module Deepspace
     end
     
     def to_s
-      "name: #{@name} - boost: #{@boots} - uses: #{@uses}"
+      "name: #{@name} - boost: #{@boost} - uses: #{@uses}"
     end
     
     def getUIversion
