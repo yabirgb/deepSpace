@@ -26,6 +26,16 @@ public class Dice {
         this.generator = new Random();
     }
     
+    GameCharacter firstShot(){
+        //generate a random value (double) between 0 and 1
+        double random = generator.nextDouble();
+        
+        if(random < FIRSTSHOTPROB )
+            return GameCharacter.SPACESTATION;
+        else
+            return GameCharacter.ENEMYSTARSHIP;
+    }
+    
     
     /*
     *   Number of hangars for a spacial station when 
@@ -81,16 +91,6 @@ public class Dice {
     
     int whoStarts(int nPlayers){
         return generator.nextInt(nPlayers); 
-    }
-    
-    GameCharacter firstShot(){
-        //generate a random value (double) between 0 and 1
-        double random = generator.nextDouble();
-        
-        if(random < FIRSTSHOTPROB )
-            return GameCharacter.SPACESTATION;
-        else
-            return GameCharacter.ENEMYSTARSHIP;
     }
     
     

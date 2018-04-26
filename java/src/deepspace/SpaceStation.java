@@ -44,11 +44,56 @@ class SpaceStation{
 	if (pendingDamage != null && pendingDamage.hasNoEffect())
 	    pendingDamage = null;
     }
-
+    
+    public void cleanUpMountedItems(){
+        shieldBoosters.removeIf(x->x.getUses() == 0);
+        shieldBoosters.removeIf(x->x.getUses() == 0);
+    }
 
     // =================
     // Discard things
     // =================
+    
+    public float getShieldPower(){
+        return shieldPower;
+    }
+    
+    public int getNMedals(){
+        return nMedals;
+    }
+    
+    public SpaceStationToUI getUIversion(){
+        return new SpaceStationToUI(this);
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public Hangar getHangar(){
+        return hangar;
+    }
+    
+    public float getFuelUnits(){
+        return fuelUnits;
+    }
+    
+    public float getAmmoPower(){
+        return ammoPower;
+    }
+    
+    public Damage getPendingDamage(){
+        return pendingDamage;
+    }
+    
+    public ArrayList<Weapon> getWeapons(){
+        return weapons;
+    }
+    
+    public ArrayList<ShieldBooster> getShieldBoosters(){
+        return shieldBoosters;
+    }
+    
     
     public void discardHangar(){
 	hangar = null;
@@ -99,9 +144,6 @@ class SpaceStation{
     // =================
     // getters
     // =================
-
-    
-
     
     public float getSpeed(){
         return fuelUnits/MAXFUEL;
@@ -144,7 +186,7 @@ class SpaceStation{
             hangar = new Hangar(h);
     }
     
-    public boolean receiveShieldBoosters(ShieldBooster s){
+    public boolean receiveShieldBooster(ShieldBooster s){
         if (hangar != null)
             return hangar.addShieldBooster(s);
         else
@@ -181,21 +223,34 @@ class SpaceStation{
             return false;
     }
     
+    public void setLoot(Loot loot){
+        CardDealer dealer = CardDealer.getInstance();
+                    
+        if (loot.getNHangars() > 0){
+            receiveHangar(dealer.nextHangar());
+        }
+        
+        for(int i = 0; i < loot.getNSupplies(); i++){
+            receiveSupplies(dealer.nextSuppliesPackage());
+        }
+        
+        for(int i = 0; i < loot.getNShields(); i++){
+            receiveShieldBooster(dealer.nextShieldBooster());
+        }
+        
+        for(int i = 0; i < loot.getNWeapons(); i++){
+            receiveWeapon(dealer.nextWeapon());
+        }
+        
+        nMedals += loot.getNMedals();   
+    }
+    
     public void setPendingDamage(Damage d){
         pendingDamage = d.adjust(weapons, shieldBoosters);
     }
     
-    public void setLoot(Loot loot){
-        CardDealer dealer = CardDealer.getInstance();
-        
-        int h = loot.getNHangars();
-            
-        if (h > 0){
-        
-        }
-        //Complete
+    public boolean validState(){
+        return pendingDamage == null || pendingDamage.hasNoEffect();
     }
-    
-    
     
 }

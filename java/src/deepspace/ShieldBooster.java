@@ -9,7 +9,7 @@ package deepspace;
  *  Shield boosters that a space station can have
  *  @author yabir
  */
-public class ShieldBooster {
+public class ShieldBooster implements Copyable<ShieldBooster> {
     private String name;
     private float boost;
     private int uses;
@@ -66,5 +66,14 @@ public class ShieldBooster {
             return getBoost();
         }else
             return 1.0f;
+    }
+    
+    public ShieldToUI getUIversion(){
+        return new ShieldToUI(this);
+    }
+    
+    @Override
+    public ShieldBooster copy(){
+        return new ShieldBooster(this);
     }
 }

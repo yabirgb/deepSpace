@@ -21,6 +21,7 @@ module Deepspace
       c = Hangar.new(h.maxElements)
       h.weapons.each{|w|
         c.addWeapon(Weapon.newCopy(w))
+
       }
       
       h.shieldBoosters.each{|s|
