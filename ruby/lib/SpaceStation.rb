@@ -35,6 +35,11 @@ module Deepspace
       assignFuelValue(supplies.fuelUnits)
     end
     
+    def self.newCopy(station)
+      #Crear un supplies package
+      h = SpaceStation.new(station.name, supplies)
+    end
+    
     def assignFuelValue(f)
       if f == nil
         @fuelUnits = 0
@@ -210,6 +215,14 @@ module Deepspace
       }
       
       @nMedals += loot.nMedals
+      
+      if loot.efficient
+        Transoformation::GETEFFICIENT
+      elsif loot.spaceCity  
+        Transoformation::SPACECITY
+      else  
+        Transformation::NOTRANSFORM
+      end
       
     end
          

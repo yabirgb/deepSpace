@@ -10,13 +10,20 @@ module Deepspace
     attr_reader :nShields   #int Potenciadores de escudos
     attr_reader :nHangars   #int Hangares
     attr_reader :nMedals    #int Medallas
-
-    def initialize(nSupplies, nWeapons, nShields, nHangars, nMedals)
+    attr_reader :efficient
+      
+    def initialize(nSupplies, nWeapons, nShields, nHangars, nMedals, ef, city)
       @nSupplies = nSupplies
       @nWeapons = nWeapons
       @nShields = nShields
       @nHangars = nHangars
       @nMedals = nMedals
+      @spaceCity = city 
+      @efficient = ef
+    end
+    
+    def spaceCity
+      return @spaceCity
     end
     
     def getUIversion

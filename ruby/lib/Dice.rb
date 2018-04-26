@@ -10,6 +10,7 @@ module Deepspace
       @NSHIELDSPROB = 0.25
       @NWEAPONSPROB = 0.33
       @FIRSTSHOTPROB = 0.5
+      @EXTRAEFFICIENCYPROB = 0.8
       @generator = Random.new
     end 
 
@@ -65,6 +66,10 @@ module Deepspace
       else
         false
       end
+    end
+    
+    def extraEfficiency
+      return @generator.rand < @EXTRAEFFICIENCYPROB
     end
   end
 end

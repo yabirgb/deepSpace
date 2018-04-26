@@ -9,9 +9,17 @@ class HangarToUI
   attr_reader :maxElements, :weapons, :shieldBoosters
     
   def initialize(h) 
-    @weapons=h.weapons
-    @shieldBoosters=h.shieldBoosters
+    @weapons=Array.new()
+    @shieldBoosters=Array.new()
     @maxElements=h.maxElements
+    
+    for w in h.weapons do
+      @weapons.push(w.getUIversion())
+    end
+    
+    for s in h.shieldBoosters do
+      @shieldBoosters.push(s.getUIversion())
+    end
   end
   
   def to_s
