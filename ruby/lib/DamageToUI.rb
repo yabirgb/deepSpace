@@ -17,7 +17,7 @@ class DamageToUI
     
   public
   
-  def getWeaponInfo() 
+  def getWeaponInfo() #Armas del daño
     raise "ERROR: This method has not been implemented yet!"
   end
     

@@ -20,7 +20,8 @@ module Deepspace
     attr_reader :shieldBoosters
     attr_reader :weapons
     attr_reader :shieldPower     
-
+    attr_reader :supplies
+    
     attr_writer :pendingDamage
     attr_writer :loot
     
@@ -37,7 +38,7 @@ module Deepspace
     
     def self.newCopy(station)
       #Crear un supplies package
-      h = SpaceStation.new(station.name, supplies)
+      SpaceStation.new(station.name, station.supplies)
     end
     
     def assignFuelValue(f)

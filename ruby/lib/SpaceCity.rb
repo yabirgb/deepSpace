@@ -16,6 +16,9 @@ class SpaceCity < SpaceStation
     }
   end
   
+  def self.newCopy(station)
+    h = new(station.base, station.collaborators)
+  end
   
   def fire
     shot = super
@@ -39,7 +42,7 @@ class SpaceCity < SpaceStation
   
   def setLoot(loot)
     super
-    return nil
+    return Transformation::NOTRANSFORM
   end
 end
 end

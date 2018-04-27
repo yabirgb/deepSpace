@@ -11,6 +11,7 @@ module Deepspace
     attr_reader :nHangars   #int Hangares
     attr_reader :nMedals    #int Medallas
     attr_reader :efficient
+    attr_reader :spaceCity
       
     def initialize(nSupplies, nWeapons, nShields, nHangars, nMedals, ef, city)
       @nSupplies = nSupplies
@@ -21,11 +22,7 @@ module Deepspace
       @spaceCity = city 
       @efficient = ef
     end
-    
-    def spaceCity
-      return @spaceCity
-    end
-    
+
     def getUIversion
       LootToUI.new(self)
     end
