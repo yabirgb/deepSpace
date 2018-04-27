@@ -7,6 +7,9 @@ require_relative 'GameCharacter'
 require_relative 'ShotResult'
 require_relative 'CombatResult'
 require_relative 'Loot'
+require_relative 'SpaceCity'
+require_relative 'BetaPowerEfficientSpaceStation'
+require_relative 'PowerEfficientSpaceStation'
 
 module Deepspace
   class GameUniverse
@@ -18,6 +21,7 @@ module Deepspace
       @currentEnemy = nil
       @turns = 0
       @dice = Dice.new()
+      @haveSpaceCity = false
     end
     
     def discardHangar
@@ -173,10 +177,42 @@ module Deepspace
       else
         aLoot = enemy.loot
         station.setLoot(aLoot)
-        combatResult=CombatResult::STATIONWINS
+        combatResult=CombatResult::STATIONWINSANDCONVERTS
+        
+        if aLoot.efficient
+          makeStationEfficient
+        elsif aLoot.spaceCity  
+          createSpaceCity
+        else  
+          combatResult=CombatResult::STATIONWINSANDCONVERTS
+        end
+        
+        
       end
       @gameState.next(@turns, @spaceStations.length)
       return combatResult
+      
+    end
+    
+    def createSpaceCity
+      if not @haveSpaceCity
+        city = SpaceCity(@spaceStation[@currentStationIndex], Array.new(@spaceStation).delete_at(@currentStationIndex))
+        @spaceStation[@currentStationIndex] = city
+        @haveSpaceCity = true
+        puts "TRANSFORMATION TO SPACECITY FINISHED"
+      end
+    end
+    
+    def makeStationEfficient
+      if @dice.extraEfficiency
+        station = BetaPowerEfficientSpaceStation.new(@spaceStations[@currentStationIndex])
+        puts "TRANSPORMATED TO BETAEFFICIENT"
+      else
+        station = PowerEfficientSpaceStation.new(@spaceStations[@currentStationIndex])
+        puts "TRANSPORMATED TO EFFICIENT"
+      end
+      
+      @spaceStation[@currentStationIndex] = station
       
     end
     

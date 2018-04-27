@@ -8,5 +8,6 @@ module CombatResult
     NOCOMBAT = :nocombat
     STATIONESCAPES = :stationescapes
     STATIONWINS = :stationwins
+    STATIONWINSANDCONVERTS = :stationwinsandconverts
 end
 end

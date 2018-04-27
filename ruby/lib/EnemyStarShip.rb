@@ -1,5 +1,6 @@
 require_relative 'ShotResult'
 require_relative 'EnemyToUI'
+
 module Deepspace
   class EnemyStarShip
     
@@ -20,7 +21,7 @@ module Deepspace
       @damage = damage
     end
     
-    def newCopy(e)
+    def self.newCopy(e)
       EnemyStarShip.new(e.name, e.ammoPower, e.shieldPower, e.loot, e.damage)
     end
 

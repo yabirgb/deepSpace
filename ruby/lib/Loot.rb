@@ -13,7 +13,7 @@ module Deepspace
     attr_reader :efficient
     attr_reader :spaceCity
       
-    def initialize(nSupplies, nWeapons, nShields, nHangars, nMedals, ef, city)
+    def initialize(nSupplies, nWeapons, nShields, nHangars, nMedals, ef = false, city = false)
       @nSupplies = nSupplies
       @nWeapons = nWeapons
       @nShields = nShields

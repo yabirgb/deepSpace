@@ -2,6 +2,7 @@ require_relative 'SpaceStationToUI'
 require_relative 'ShieldBooster'
 require_relative 'Hangar'
 require_relative 'CardDealer'
+require_relative 'Transformation'
     
 #When a attribute doesn't exists we get nil trying to get.
 #On set it works as expected
@@ -30,6 +31,7 @@ module Deepspace
       @supplies = supplies
       @nMedals = 0
       @weapons = Array.new
+      @fuelUnits = 0
       @shieldBoosters = Array.new
       @ammoPower = supplies.ammoPower
       @shieldPower = supplies.shieldPower
