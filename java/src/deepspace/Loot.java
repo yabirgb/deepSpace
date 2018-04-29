@@ -15,6 +15,8 @@ public class Loot implements Copyable<Loot> {
     private int nShields;
     private int nHangars;
     private int nMedals;
+    private boolean getEfficient;
+    private boolean spaceCity;
     
     Loot(int nSupplies, int nWeapons, int nShields, int nHangars, int nMedals){
         this.nSupplies = nSupplies;
@@ -22,6 +24,16 @@ public class Loot implements Copyable<Loot> {
         this.nShields = nShields;
         this.nHangars = nHangars;
         this.nMedals = nMedals;
+    }
+    
+    Loot(int nSupplies, int nWeapons, int nShields, int nHangars, int nMedals, boolean ef, boolean city){
+        this.nSupplies = nSupplies;
+        this.nWeapons = nWeapons;
+        this.nShields = nShields;
+        this.nHangars = nHangars;
+        this.nMedals = nMedals;
+        this.getEfficient = ef;
+        this.spaceCity = city;
     }
     
     public int getNSupplies(){
@@ -42,6 +54,14 @@ public class Loot implements Copyable<Loot> {
     
     public int getNMedals(){
         return nMedals;
+    }
+    
+    public boolean getEfficient(){
+        return getEfficient;
+    }
+    
+    public boolean spaceCity(){
+        return spaceCity;
     }
     
     public LootToUI getUIversion(){

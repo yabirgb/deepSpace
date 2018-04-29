@@ -1,6 +1,6 @@
 package deepspace;
 
-class EnemyStarShip implements Copyable<EnemyStarShip> {
+class EnemyStarShip implements Copyable<EnemyStarShip>, SpaceFighter {
 
     private float ammoPower;
     private float shieldPower;
@@ -14,7 +14,11 @@ class EnemyStarShip implements Copyable<EnemyStarShip> {
 	ammoPower = a;
 	shieldPower = s;
 	loot = new Loot(l.getNSupplies(), l.getNWeapons(), l.getNShields(), l.getNHangars(), l.getNMedals());
-	damage = new Damage(d);
+        if (d instanceof NumericDamage){
+            damage = new NumericDamage((NumericDamage)d);
+        }else{
+            damage = new SpecificDamage((SpecificDamage)d);
+        }
     }
 
     EnemyStarShip(EnemyStarShip e){
@@ -25,6 +29,7 @@ class EnemyStarShip implements Copyable<EnemyStarShip> {
 	return new EnemyToUI(this);
     }
 
+    @Override
     public float fire(){
 	return ammoPower;
     }
@@ -48,11 +53,13 @@ class EnemyStarShip implements Copyable<EnemyStarShip> {
     public float getShieldPower(){
 	return shieldPower;
     }
-
+    
+    @Override
     public float protection(){
 	return shieldPower;
     }
-
+    
+    @Override
     public ShotResult receiveShot(float shot){
 	if (protection() < shot){
 	    return ShotResult.DONOTRESIST;

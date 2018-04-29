@@ -33,4 +33,9 @@ public class NumericDamage extends Damage{
         return new NumericDamageToUI(this);
     }
     
+    @Override
+    public void discardWeapon(Weapon w){
+        nWeapons -= 1;
+    }
+    
 }

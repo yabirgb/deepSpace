@@ -2,7 +2,7 @@ package deepspace;
 
 import java.util.ArrayList;
 
-class SpaceStation{
+class SpaceStation implements SpaceFighter{
 
     private static final float MAXFUEL = 100;
     private static final double SHIELDLOSSPERUNITSHOT = 0.1;
@@ -130,7 +130,8 @@ class SpaceStation{
 	if (hangar != null)
 	    hangar.removeWeapon(i);
     }
-
+    
+    @Override
     public float fire(){
 	float factor = 1;
 	for(Weapon w: weapons){
@@ -166,6 +167,7 @@ class SpaceStation{
             fuelUnits -= getSpeed();
     }
     
+    @Override
     public float protection(){
         float factor = 1;
         
@@ -193,6 +195,7 @@ class SpaceStation{
             return false;
     }
     
+    @Override
     public ShotResult receiveShot(float shot){
         float myProtection = protection();
         

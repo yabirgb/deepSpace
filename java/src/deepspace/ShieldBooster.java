@@ -9,7 +9,7 @@ package deepspace;
  *  Shield boosters that a space station can have
  *  @author yabir
  */
-public class ShieldBooster implements Copyable<ShieldBooster> {
+public class ShieldBooster implements Copyable<ShieldBooster>, CombatElement {
     private String name;
     private float boost;
     private int uses;
@@ -56,10 +56,12 @@ public class ShieldBooster implements Copyable<ShieldBooster> {
     *   Uses left in the booster
     *   @return int with the number of uses left
     */
+    @Override
     public int getUses() {
         return uses;
     }
     
+    @Override
     public float useIt(){
         if (uses > 0){
             uses--;

@@ -60,4 +60,10 @@ public class SpecificDamage extends Damage{
     SpecificDamageToUI getUIversion(){
         return new SpecificDamageToUI(this);
     }
+    
+    @Override
+    public void discardWeapon(Weapon w){
+        weapons.remove(w.getType());
+    }
+    
 }
