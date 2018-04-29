@@ -1,1 +1,4 @@
+
 /java/dist/
+/ruby/nbproject/private/
+*.class

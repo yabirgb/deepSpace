@@ -32,6 +32,7 @@ module Deepspace
     end
     
     def adjustShields(sl)
+      puts "#{nShields} #{sl.length}"
       [nShields,sl.length].min
     end
 

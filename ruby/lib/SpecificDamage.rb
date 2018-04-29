@@ -7,8 +7,8 @@ module Deepspace
   class SpecificDamage < Damage
 
 
-    def initialize(nshields, wl)
-      super(-1, nshields, wl)
+    def initialize(wl, s)
+      super(-1, s, wl)
     end
 
     def getUIversion
@@ -30,7 +30,7 @@ module Deepspace
         end
       }
 
-      SpecificDamage.new(result, super.adjustShields(sl)) 
+      SpecificDamage.new(result, adjustShields(sl)) 
     end
         
     def arrayContainsType(w, t)

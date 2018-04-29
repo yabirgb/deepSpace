@@ -20,7 +20,7 @@ module Deepspace
     end
         
     def adjust(wl, sl)
-      NumericDamage.new([nWeapons,wl.length].min, super.adjustShields(sl))
+      NumericDamage.new([nWeapons,wl.length].min, adjustShields(sl))
     end
         
     def discardWeapon(w)

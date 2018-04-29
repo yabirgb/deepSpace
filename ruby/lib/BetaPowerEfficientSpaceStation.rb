@@ -3,8 +3,9 @@
 # and open the template in the editor.
 
 require_relative 'Dice'
-require_relatice 'PowerEfficientSpaceStation'
+require_relative 'PowerEfficientSpaceStation'
 
+module Deepspace
 class BetaPowerEfficientSpaceStation < PowerEfficientSpaceStation
   @@EXTRAEFFICIENCY = 1.2
   
@@ -24,4 +25,5 @@ class BetaPowerEfficientSpaceStation < PowerEfficientSpaceStation
       
   end
   
+end
 end
