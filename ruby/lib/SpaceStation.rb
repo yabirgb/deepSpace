@@ -26,13 +26,13 @@ module Deepspace
     attr_writer :pendingDamage
     attr_writer :loot
         
-    def initialize(n, supplies)
+    def initialize(n, supplies, weapons=Array.new, shields=Array.new, medals=0)
       @name = n
       @supplies = supplies
-      @nMedals = 0
-      @weapons = Array.new
+      @nMedals = medals
+      @weapons = weapons
       @fuelUnits = 0
-      @shieldBoosters = Array.new
+      @shieldBoosters = shields
       @ammoPower = supplies.ammoPower
       @shieldPower = supplies.shieldPower
       assignFuelValue(supplies.fuelUnits)

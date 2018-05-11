@@ -182,7 +182,11 @@ module Deepspace
         if transformation == Transformation::GETEFFICIENT
           makeStationEfficient
         elsif transformation == Transformation::SPACECITY
-          createSpaceCity
+          if !@haveSpaceCity
+            combatResult=CombatResult::STATIONWINS
+          else
+            createSpaceCity
+          end 
         else  
           combatResult=CombatResult::STATIONWINS
         end
@@ -195,18 +199,17 @@ module Deepspace
     end
     
     def createSpaceCity
-      if not @haveSpaceCity
-        ships = Array.new(@spaceStations)
-        ships.delete_at(@currentStationIndex)
-        @currentStation = SpaceCity.new(@currentStation, ships)
-        @haveSpaceCity = true
-        @spaceStations[@currentStationIndex] = @currentStation
-        puts "TRANSFORMATION TO SPACECITY FINISHED"
-      end
+      ships = Array.new(@spaceStations)
+      ships.delete_at(@currentStationIndex)
+      @currentStation = SpaceCity.new(@currentStation, ships)
+      @haveSpaceCity = true
+      @spaceStations[@currentStationIndex] = @currentStation
+      puts "TRANSFORMATION TO SPACECITY FINISHED"
     end
     
     def makeStationEfficient
-      if @dice.extraEfficiency
+      prob = @dice.extraEfficiency
+      if prob
         @currentStation = BetaPowerEfficientSpaceStation.new(@currentStation)
         puts "TRANSPORMATED TO BETAEFFICIENT"
       else

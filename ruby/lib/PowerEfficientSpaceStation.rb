@@ -4,6 +4,7 @@
 
 require_relative 'SpaceStation'
 require_relative 'PowerEfficientSpaceStationToUI'
+require_relative 'SuppliesPackage'
 
 module Deepspace
 class PowerEfficientSpaceStation < SpaceStation
@@ -11,7 +12,9 @@ class PowerEfficientSpaceStation < SpaceStation
   @@EFFICIENCYFACTOR = 1.10
   
   def initialize(station)
-    super(station.name, station.supplies)
+    s = SuppliesPackage.new(station.ammoPower, station.fuelUnits, station.shieldPower)
+    super(station.name, s, station.weapons, station.shieldBoosters,
+      station.nMedals)
   end
   
   def self.newCopy(station)
