@@ -5,18 +5,11 @@ require_relative 'WeaponType'
 module Deepspace
   class Damage
 
-    attr_reader :nShields # Número de escudos a descartar
-    attr_reader :nWeapons #Número de armas a descartar
-    attr_reader :weapons #Vector de weaponType
+      attr_reader :nShields # Número de escudos a descartar
+     #Vector de weaponType
 
-    def initialize(nweapons, nshields, wl)
-      @nShields = nshields
-      @nWeapons = nweapons
-      if wl != nil
-        @weapons = Array.new(wl)
-      else
-        @weapons = nil
-      end
+    def initialize(nshields)
+      @nShields = nshields 
     end
     
     def self.newCopy
@@ -53,7 +46,7 @@ module Deepspace
     end
 
     def to_s
-      "nWeapons: #{nWeapons}; Shields: #{nShields}; Weapons #{weapons}"
+      "Shields: #{nShields};"
     end
     
     private_class_method :new

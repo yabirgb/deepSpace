@@ -62,6 +62,7 @@ class CardDealer
     end
     
     def createSuppliesPackages() 
+=begin
         @suppliesPackages.add(SuppliesPackage.new(1,10,1))
         @suppliesPackages.add(SuppliesPackage.new(1,10,1))
         @suppliesPackages.add(SuppliesPackage.new(1,10,1))
@@ -74,6 +75,7 @@ class CardDealer
         @suppliesPackages.add(SuppliesPackage.new(1,0,3))
         @suppliesPackages.add(SuppliesPackage.new(3,50,3))  
         @suppliesPackages.add(SuppliesPackage.new(40,100,40))
+=end
         @suppliesPackages.add(SuppliesPackage.new(100,100,100))
     end
     
@@ -132,11 +134,11 @@ class CardDealer
         @hangars.add(Hangar.new(1))
     end
     
-    def createEnemies() 
-        regularLoot0=Loot.new(1,2,1,1,1)
-        regularLoot1=Loot.new(1,1,2,1,1)
-        badLoot=Loot.new(1,1,1,0,1)
-        goodLoot=Loot.new(2,2,2,1,2)
+    def createEnemies()
+        regularLoot0=Loot.new(1,2,1,1,1, false, true)
+        regularLoot1=Loot.new(1,1,2,1,1, false, true)
+        badLoot=Loot.new(1,1,1,0,1,true)
+        goodLoot=Loot.new(2,2,2,1,2,true)
         
         regularDamage0=NumericDamage.new(2,1) 
         regularDamage1=NumericDamage.new(1,1) 

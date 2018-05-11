@@ -60,7 +60,13 @@ class TextUI
               if(@controller.haveAWinner()) then
                 pause("\n\n **** **** ****  HAS GANADO LA PARTIDA  **** **** ****\n")
                 exit(0)
-              end
+              end    
+            when DS::CombatResult::STATIONWINSANDCONVERTS
+                pause("\n Has GANADO el combate. Disfruta de tu botín. WOLOLOLOLO! TE HAS TRANSFORMADO!")
+                if(@controller.haveAWinner()) then
+                  pause("\n\n **** **** ****  HAS GANADO LA PARTIDA  **** **** ****\n")
+                  exit(0)
+                end
           end
           begin    # Until a valid next turn
               puts showStation(@gameUI.currentStation)
@@ -195,6 +201,7 @@ class TextUI
     out += "Potencia de fuego . : " + station.ammoPower.to_s + "\n"
     out += "Potencia de defensa : " + station.shieldPower.to_s + "\n"
     out += "Medallas .......... : " + station.nMedals.to_s + "\n"
+    out += "Combustible.........: " + station.fuelUnits.to_s + "\n"
     out += "Armas montadas : \n"
     tmp = showWeapons(station.weapons, false)
     if("".eql?(tmp)) then

@@ -6,9 +6,11 @@ require_relative 'Damage'
 module Deepspace
   class NumericDamage < Damage
 
-
+    attr_reader :nWeapons #Número de armas a descartar
+    
     def initialize(w, s)
-      super(w, s, [])
+      super(s)
+      @nWeapons = w
     end
 
     def getUIversion
@@ -33,7 +35,7 @@ module Deepspace
     end
 
     def to_s
-      "nWeapons: #{nWeapons}; Shields: #{nShields};"
+      "nWeapons: #{nWeapons};" + super
     end
     
     public :adjust

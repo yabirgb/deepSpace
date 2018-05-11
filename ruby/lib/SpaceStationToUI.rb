@@ -43,6 +43,7 @@ class SpaceStationToUI
     else
       @pendingDamage=nil
     end
+    
   end
   
   def to_s

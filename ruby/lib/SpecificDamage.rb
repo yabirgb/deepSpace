@@ -5,18 +5,20 @@ require_relative 'Damage'
 
 module Deepspace
   class SpecificDamage < Damage
-
+    
+    attr_reader :weapons
 
     def initialize(wl, s)
-      super(-1, s, wl)
+      super(s)
+      @weapons = Array.new(wl)
     end
 
     def getUIversion
       SpecificDamageToUI.new(self)
     end
     
-    def self.newCopy
-      new(nShields, weapons)
+    def self.newCopy(d)
+      new(d.nShields, d.weapons)
     end
         
     def adjust(wl, sl)
@@ -54,7 +56,7 @@ module Deepspace
     end
 
     def to_s
-      "Weapons #{weapons}; Shields: #{nShields};"
+      "Weapons #{weapons};" + super
     end
     
     public :adjust

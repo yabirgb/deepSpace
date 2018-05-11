@@ -25,7 +25,7 @@ module Deepspace
     
     attr_writer :pendingDamage
     attr_writer :loot
-    
+        
     def initialize(n, supplies)
       @name = n
       @supplies = supplies
@@ -220,9 +220,9 @@ module Deepspace
       @nMedals += loot.nMedals
       
       if loot.efficient
-        Transoformation::GETEFFICIENT
+        Transformation::GETEFFICIENT
       elsif loot.spaceCity  
-        Transoformation::SPACECITY
+        Transformation::SPACECITY
       else  
         Transformation::NOTRANSFORM
       end

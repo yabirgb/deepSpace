@@ -3,6 +3,7 @@
 # and open the template in the editor.
 
 require_relative 'SpaceStation'
+require_relative 'PowerEfficientSpaceStationToUI'
 
 module Deepspace
 class PowerEfficientSpaceStation < SpaceStation
@@ -31,6 +32,10 @@ class PowerEfficientSpaceStation < SpaceStation
   def protection
     shield = super
     shield*@@EFFICIENCYFACTOR
+  end
+  
+  def getUIversion
+    return PowerEfficientSpaceStation.new(self)
   end
 end
 end

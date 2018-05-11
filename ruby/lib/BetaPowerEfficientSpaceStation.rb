@@ -4,6 +4,7 @@
 
 require_relative 'Dice'
 require_relative 'PowerEfficientSpaceStation'
+require_relative 'PowerEfficientSpaceStationToUI'
 
 module Deepspace
 class BetaPowerEfficientSpaceStation < PowerEfficientSpaceStation
@@ -23,6 +24,10 @@ class BetaPowerEfficientSpaceStation < PowerEfficientSpaceStation
     
     shot
       
+  end
+  
+  def getUIversion
+    PowerEfficientSpaceStationToUI.new(self)
   end
   
 end

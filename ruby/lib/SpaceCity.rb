@@ -1,6 +1,9 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
+
+require_relative 'SpaceCityToUI'
+
 module Deepspace
 class SpaceCity < SpaceStation
   
@@ -9,11 +12,7 @@ class SpaceCity < SpaceStation
   def initialize(base, rest)
     super(base.name, base.supplies)
     @base = base
-    @collaborators = Array.new 
-    
-    rest.each{|station|
-      @collaborators.push(SpaceStation.newCopy(station))
-    }
+    @collaborators = rest
   end
   
   def self.newCopy(station)
@@ -34,7 +33,7 @@ class SpaceCity < SpaceStation
     prot = super
     
     @collaborators.each{|station|
-      prot *= station.protection
+      prot += station.protection
     }
     
     prot
@@ -43,6 +42,10 @@ class SpaceCity < SpaceStation
   def setLoot(loot)
     super
     return Transformation::NOTRANSFORM
+  end
+  
+  def getUIversion
+    return SpaceCityToUI.new(self)
   end
 end
 end
