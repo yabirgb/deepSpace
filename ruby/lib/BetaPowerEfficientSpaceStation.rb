@@ -27,7 +27,7 @@ class BetaPowerEfficientSpaceStation < PowerEfficientSpaceStation
   end
   
   def getUIversion
-    PowerEfficientSpaceStationToUI.new(self)
+    BetaPowerEfficientSpaceStationToUI.new(self)
   end
   
 end
