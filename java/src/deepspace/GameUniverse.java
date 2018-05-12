@@ -19,6 +19,8 @@ public class GameUniverse {
     private GameStateController gameState = new GameStateController();
     private CardDealer dealer;
     
+    private boolean haveSpaceCity = false;
+    
     public GameUniverse(){
         turns = 0;
     }
@@ -33,51 +35,56 @@ public class GameUniverse {
     
     CombatResult combat(SpaceStation station, EnemyStarShip enemy){
         
-        GameState state = gameState.getState();
-        if (state == GameState.BEFORECOMBAT || state == GameState.INIT){
-            GameCharacter ch = dice.firstShot();
-            
-            boolean enemyWins;
-            CombatResult combatResult = CombatResult.STATIONESCAPES;
-            
-            if (ch == GameCharacter.ENEMYSTARSHIP){
-                
-                float fire = station.fire();
-                ShotResult result = station.receiveShot(fire);
-                
-                if (result == ShotResult.RESIST){
-                    fire = station.fire();
-                    result = enemy.receiveShot(fire);
-                    enemyWins = result == ShotResult.RESIST;
-                }
-                else{
-                    enemyWins = true;
-                }
-            }else{
-                float fire = station.fire();
-                ShotResult result = enemy.receiveShot(fire);
+        GameCharacter ch = dice.firstShot();
+
+        boolean enemyWins;
+        CombatResult combatResult = CombatResult.STATIONESCAPES;
+
+        if (ch == GameCharacter.ENEMYSTARSHIP){
+
+            float fire = station.fire();
+            ShotResult result = station.receiveShot(fire);
+
+            if (result == ShotResult.RESIST){
+                fire = station.fire();
+                result = enemy.receiveShot(fire);
                 enemyWins = result == ShotResult.RESIST;
             }
-            
-            if (enemyWins){
-                boolean moves = dice.spaceStationMoves(station.getSpeed());
-                
-                if (moves){
-                    station.move();
-                    combatResult = CombatResult.STATIONESCAPES;
-                }else{
-                    Damage damage = enemy.getDamage();
-                    station.setPendingDamage(damage);
-                    combatResult = CombatResult.ENEMYWINS;
-                }
+            else{
+                enemyWins = true;
             }
+        }else{
+            float fire = station.fire();
+            ShotResult result = enemy.receiveShot(fire);
+            enemyWins = result == ShotResult.RESIST;
+        }
+
+        if (enemyWins){
+            boolean moves = dice.spaceStationMoves(station.getSpeed());
+
+            if (moves){
+                station.move();
+                combatResult = CombatResult.STATIONESCAPES;
+            }else{
+                Damage damage = enemy.getDamage();
+                station.setPendingDamage(damage);
+                combatResult = CombatResult.ENEMYWINS;
+            }
+        }else{
+            Transformation trans = station.setLoot(enemy.getLoot());
             
-            gameState.next(turns, spaceStations.size());
-            return combatResult;
-        }    
-        else
-            return CombatResult.NOCOMBAT;
+            combatResult = CombatResult.STATIONWINSANDCONVERTS;
             
+            if(trans == Transformation.GETEFFICIENT)
+                makeStationEfficient();
+            else if (trans == Transformation.SPACECITY)
+                createSpaceCity();
+            else
+                combatResult = CombatResult.STATIONWINS;
+        }
+
+        gameState.next(turns, spaceStations.size());
+        return combatResult;            
     }
     
     public void discardHangar(){
@@ -178,5 +185,26 @@ public class GameUniverse {
         }
         
         return false;
+    }
+    
+    private void createSpaceCity(){
+        if (!haveSpaceCity){
+            ArrayList<SpaceStation> ships = new ArrayList(spaceStations);
+            ships.remove(currentStationIndex);
+            currentStation = new SpaceCity(currentStation, ships);
+            spaceStations.set(currentStationIndex, currentStation);
+            haveSpaceCity = true;
+        }
+    }
+    
+    private void makeStationEfficient(){
+        boolean extra = dice.extraEfficiency();
+        if (extra){
+            currentStation = new BetaPowerEfficientSpaceStation(currentStation);
+        }else{
+            currentStation = new PowerEfficientSpaceStation(currentStation);
+        }
+        
+        spaceStations.set(currentStationIndex, currentStation);
     }
 }

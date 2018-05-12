@@ -32,6 +32,20 @@ class SpaceStation implements SpaceFighter{
 	shieldBoosters = new ArrayList<>();
 	pendingDamage = null;
     }
+    
+    SpaceStation(SpaceStation s){
+        this(s.name, new SuppliesPackage(s.ammoPower, s.fuelUnits, s.shieldPower));
+        weapons = new ArrayList(s.weapons);
+        shieldBoosters = new ArrayList(s.shieldBoosters);
+        
+        if(hangar != null)
+            hangar = new Hangar(s.hangar);
+        else
+            hangar = null;
+        
+        if (s.pendingDamage != null)
+            pendingDamage = s.pendingDamage.copy();
+    }
 
     private void assignFuelValue(float f){
 	if (f < MAXFUEL)
@@ -226,7 +240,7 @@ class SpaceStation implements SpaceFighter{
             return false;
     }
     
-    public void setLoot(Loot loot){
+    public Transformation setLoot(Loot loot){
         CardDealer dealer = CardDealer.getInstance();
                     
         if (loot.getNHangars() > 0){
@@ -245,7 +259,17 @@ class SpaceStation implements SpaceFighter{
             receiveWeapon(dealer.nextWeapon());
         }
         
-        nMedals += loot.getNMedals();   
+        nMedals += loot.getNMedals(); 
+        
+        Transformation t = Transformation.NOTRANSFORM;
+        
+        if (loot.getEfficient()){
+            t = Transformation.GETEFFICIENT;
+        }else if(loot.spaceCity()){
+            t =  Transformation.SPACECITY;
+        }
+        
+        return t;
     }
     
     public void setPendingDamage(Damage d){

@@ -1,6 +1,6 @@
 package deepspace;
 
-class EnemyStarShip implements Copyable<EnemyStarShip>, SpaceFighter {
+class EnemyStarShip implements SpaceFighter {
 
     private float ammoPower;
     private float shieldPower;
@@ -67,11 +67,6 @@ class EnemyStarShip implements Copyable<EnemyStarShip>, SpaceFighter {
 	else{
 	    return ShotResult.RESIST;
 	}
-    }
-
-    @Override
-    public EnemyStarShip copy() {
-        return new EnemyStarShip(this);
     }
 
 }

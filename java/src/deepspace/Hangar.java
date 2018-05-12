@@ -4,7 +4,7 @@
 package deepspace;
 import java.util.ArrayList;
         
-public class Hangar implements Copyable<Hangar> {
+public class Hangar{
     
     private int maxElements;
     private ArrayList<Weapon> weapons;
@@ -80,11 +80,6 @@ public class Hangar implements Copyable<Hangar> {
 	    return weapons.remove(w);
         
         return null;
-    }
-
-    @Override
-    public Hangar copy() {
-        return new Hangar(this);
     }
     
 }

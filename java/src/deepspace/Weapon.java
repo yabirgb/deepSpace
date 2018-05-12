@@ -1,6 +1,6 @@
 package deepspace;
 
-public class Weapon implements Copyable<Weapon>, CombatElement{
+public class Weapon implements CombatElement{
     private String name;
     private WeaponType type;
     private int uses;
@@ -48,8 +48,4 @@ public class Weapon implements Copyable<Weapon>, CombatElement{
         return new WeaponToUI(this);
     }
 
-    @Override
-    public Weapon copy() {
-        return new Weapon(this);
-    }
 }

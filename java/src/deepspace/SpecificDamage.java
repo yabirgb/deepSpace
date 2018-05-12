@@ -9,13 +9,15 @@ import java.util.ArrayList;
  * @author yabir
  */
 public class SpecificDamage extends Damage{
-    
+    private ArrayList<WeaponType> weapons;
+            
     SpecificDamage(ArrayList<WeaponType> wl, int s){
-	super(-1, s, wl);
+	super(s);
+        weapons = wl;
     }
     
     SpecificDamage(SpecificDamage d){
-        this(d.weapons, d.nShields);
+        this(d.getWeapons(), d.getNShields());
     }
     
     private int arrayContainsType(ArrayList<Weapon> w, WeaponType t){
@@ -52,7 +54,7 @@ public class SpecificDamage extends Damage{
     
     @Override
     public boolean hasNoEffect(){
-	return nShields == 0 && weapons.isEmpty();
+	return super.hasNoEffect() && weapons.isEmpty();
 
     }
     
@@ -66,4 +68,8 @@ public class SpecificDamage extends Damage{
         weapons.remove(w.getType());
     }
     
+    @Override 
+    SpecificDamage copy(){
+        return new SpecificDamage(this);
+    }
 }

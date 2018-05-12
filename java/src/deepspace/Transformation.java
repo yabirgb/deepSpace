@@ -9,5 +9,5 @@ package deepspace;
  * @author yabir
  */
 public enum Transformation {
-    NOTRASFORM, GETEFFICIENT, SPACECITY
+    NOTRANSFORM, GETEFFICIENT, SPACECITY
 }

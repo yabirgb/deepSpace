@@ -5,30 +5,20 @@ import java.lang.Math;
 abstract public class Damage{
 
 
-    protected int nShields;
-    protected int nWeapons;
+    private int nShields;
     protected ArrayList<WeaponType> weapons;
     
 
-    Damage(int w, int s, ArrayList<WeaponType> wl){
+    Damage(int s){
 	nShields = s;
-	nWeapons = w;
-	
-	if (wl != null){
-	    weapons = new ArrayList<>(wl);
-	}else{
-	    weapons = null;
-	}
     }
     
     abstract DamageToUI getUIversion();
 
-    Damage(Damage d){
-	this(d.getNWeapons(), d.getNShields(), d.getWeapons());
-    }
 
     abstract public Damage adjust(ArrayList<Weapon> wl,  ArrayList<ShieldBooster> sl);
     abstract public void discardWeapon(Weapon w);
+    abstract Damage copy();
     
     public void discardShieldBooster(){
 	if (getNShields() > 0){
@@ -36,15 +26,14 @@ abstract public class Damage{
 	}
     }
 
-    abstract public boolean hasNoEffect();
+    public boolean hasNoEffect(){
+        return nShields == 0;
+    };
 
     public int getNShields(){
 	return nShields;
     }
 
-    public int getNWeapons(){
-	return nWeapons;
-    }
 
     public ArrayList<WeaponType> getWeapons(){
 	return weapons;

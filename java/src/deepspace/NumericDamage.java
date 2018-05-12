@@ -9,13 +9,19 @@ import java.util.ArrayList;
  * @author yabir
  */
 public class NumericDamage extends Damage{
+    private int nWeapons;
     
     NumericDamage(int w, int s){
-        super(w,s, null);
+        super(s);
+        nWeapons = w;
     }
     
     NumericDamage(NumericDamage d){
-        this(d.nWeapons, d.nShields);
+        this(d.getNWeapons(), d.getNShields());
+    }
+    
+    public int getNWeapons(){
+	return nWeapons;
     }
     
     @Override
@@ -23,9 +29,11 @@ public class NumericDamage extends Damage{
         return new NumericDamage(Math.min(getNWeapons(), wl.size() ), Math.min(getNShields(), sl.size() ));
     }
     
+
+    
     @Override
     public boolean hasNoEffect(){
-        return nShields == 0 && nWeapons == 0;
+        return super.hasNoEffect() && nWeapons == 0;
     }
     
     @Override
@@ -36,6 +44,11 @@ public class NumericDamage extends Damage{
     @Override
     public void discardWeapon(Weapon w){
         nWeapons -= 1;
+    }
+    
+    @Override 
+    NumericDamage copy(){
+        return new NumericDamage(this);
     }
     
 }

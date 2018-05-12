@@ -9,7 +9,7 @@ package deepspace;
  *
  * @author yabir
  */
-public class Loot implements Copyable<Loot> {
+public class Loot {
     private int nSupplies;
     private int nWeapons;
     private int nShields;
@@ -24,6 +24,8 @@ public class Loot implements Copyable<Loot> {
         this.nShields = nShields;
         this.nHangars = nHangars;
         this.nMedals = nMedals;
+        this.getEfficient = false;
+        this.spaceCity = false;
     }
     
     Loot(int nSupplies, int nWeapons, int nShields, int nHangars, int nMedals, boolean ef, boolean city){
@@ -66,10 +68,5 @@ public class Loot implements Copyable<Loot> {
     
     public LootToUI getUIversion(){
         return new LootToUI(this);
-    }
-    
-    @Override
-    public Loot copy(){
-        return new Loot(this.getNSupplies(), this.getNWeapons(), this.getNShields(), this.getNHangars(), this.getNMedals() ); 
     }
 }
