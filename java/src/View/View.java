@@ -5,15 +5,16 @@
 package View;
 
 import deepspace.GameUniverse;
-import controller.ControllerText;
+import controller.Controller;
 import java.util.ArrayList;
 /**
  *
  * @author yabir
  */
 public interface View {
-    public void setController(ControllerText unControlador);
+    public void setController(Controller unControlador);
     public void updateView();
     public void showView();
     public ArrayList<String> getNames();
+    public boolean confirmExitMessage();
 }
