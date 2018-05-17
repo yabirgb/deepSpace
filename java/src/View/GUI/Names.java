@@ -103,7 +103,6 @@ public class Names extends JDialog {
 
         jName1.getAccessibleContext().setAccessibleName("nombre1");
         jName2.getAccessibleContext().setAccessibleName("nombre2");
-        jButton1.getAccessibleContext().setAccessibleName("Empezar");
         jButton1.getAccessibleContext().setAccessibleDescription("");
 
         bindingGroup.bind();

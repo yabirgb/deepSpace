@@ -2,7 +2,14 @@
  * Here comes the text of your license
  * Each line should be prefixed with  * 
  */
+
 package View.GUI;
+import java.util.ArrayList;
+
+import deepspace.SpaceStationToUI;
+import deepspace.WeaponToUI;
+import deepspace.ShieldToUI;
+import deepspace.HangarToUI;
 
 /**
  *
@@ -13,8 +20,48 @@ public class SpaceStationView extends javax.swing.JPanel {
     /**
      * Creates new form SpaceStation
      */
+    
+    private HangarView hangarView;
+    
     public SpaceStationView() {
+        hangarView = new HangarView();
         initComponents();
+    }
+    
+    public void setSpaceStation(SpaceStationToUI station){
+        
+        //Cambiar las props de la nave
+        name.setText(station.getName());
+        ammoPower.setText(Float.toString(station.getAmmoPower()));
+        shieldPower.setText(Float.toString(station.getShieldPower()));
+        fuelUnits.setText(Float.toString(station.getFuelUnits()));
+        
+        //Limpiar los menus
+        weaponsPanel.removeAll();
+        shieldsPanel.removeAll();
+        
+        //Inicializar las armas
+        WeaponView weaponView;
+        for(WeaponToUI w: station.getWeapons()){
+            weaponView = new WeaponView();
+            weaponView.setWeapon(w);
+            weaponsPanel.add(weaponView);
+        }
+        
+        //Inicializar los escudos
+        ShieldView shieldView;
+        for(ShieldToUI w: station.getShieldBoosters()){
+            shieldView = new ShieldView();
+            shieldView.setShield(w);
+            shieldsPanel.add(shieldView);
+        }
+        
+        hangarView.setHangar(station.getHangar());
+        jpHangarView.add(hangarView);
+        
+        repaint();
+        revalidate();
+        
     }
 
     /**
@@ -32,9 +79,13 @@ public class SpaceStationView extends javax.swing.JPanel {
         ammoPower = new javax.swing.JLabel();
         shieldPower = new javax.swing.JLabel();
         fuelUnits = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        Labelname = new javax.swing.JLabel();
+        name = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        shieldsPanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        weaponsPanel = new javax.swing.JPanel();
+        jpHangarView = new javax.swing.JScrollPane();
 
         jLabel1.setText("Potencia de fuego: ");
 
@@ -48,48 +99,18 @@ public class SpaceStationView extends javax.swing.JPanel {
 
         fuelUnits.setText("jLabel6");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Escudos"));
-        jPanel1.setToolTipText("Escudos");
-        jPanel1.setName("Escudos"); // NOI18N
+        Labelname.setText("Nombre:");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 576, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        name.setText("jLabel4");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Armas"));
-        jPanel2.setPreferredSize(new java.awt.Dimension(604, 141));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Escudos"));
+        jScrollPane1.setViewportView(shieldsPanel);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Weapons"));
+        jScrollPane2.setViewportView(weaponsPanel);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Hangar"));
-        jPanel3.setPreferredSize(new java.awt.Dimension(604, 141));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 576, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jpHangarView.setBorder(javax.swing.BorderFactory.createTitledBorder("Hangar"));
+        jpHangarView.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -97,23 +118,28 @@ public class SpaceStationView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(ammoPower)
-                            .addGap(169, 169, 169)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ammoPower))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(shieldPower)))
+                        .addGap(163, 163, 163)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(fuelUnits))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(shieldPower))
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Labelname))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(name)
+                            .addComponent(fuelUnits)))
+                    .addComponent(jpHangarView)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -128,29 +154,33 @@ public class SpaceStationView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(shieldPower))
+                    .addComponent(shieldPower)
+                    .addComponent(Labelname)
+                    .addComponent(name))
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addComponent(jpHangarView, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
-
-        jPanel1.getAccessibleContext().setAccessibleName("shieldBoosters");
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Labelname;
     private javax.swing.JLabel ammoPower;
     private javax.swing.JLabel fuelUnits;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jpHangarView;
+    private javax.swing.JLabel name;
     private javax.swing.JLabel shieldPower;
+    private javax.swing.JPanel shieldsPanel;
+    private javax.swing.JPanel weaponsPanel;
     // End of variables declaration//GEN-END:variables
 }
