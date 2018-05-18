@@ -21,10 +21,8 @@ public class SpaceStationView extends javax.swing.JPanel {
      * Creates new form SpaceStation
      */
     
-    private HangarView hangarView;
-    
+   
     public SpaceStationView() {
-        hangarView = new HangarView();
         initComponents();
     }
     
@@ -39,6 +37,7 @@ public class SpaceStationView extends javax.swing.JPanel {
         //Limpiar los menus
         weaponsPanel.removeAll();
         shieldsPanel.removeAll();
+        hangarPanel.removeAll();
         
         //Inicializar las armas
         WeaponView weaponView;
@@ -56,9 +55,20 @@ public class SpaceStationView extends javax.swing.JPanel {
             shieldsPanel.add(shieldView);
         }
         
-        hangarView.setHangar(station.getHangar());
-        jpHangarView.add(hangarView);
-        
+        if (station.getHangar() != null){
+            for(WeaponToUI w: station.getHangar().getWeapons()){
+                weaponView = new WeaponView();
+                weaponView.setWeapon(w);
+                hangarPanel.add(weaponView);
+            }
+
+            for(ShieldToUI w: station.getHangar().getShieldBoosters()){
+                shieldView = new ShieldView();
+                shieldView.setShield(w);
+                hangarPanel.add(shieldView);
+            }
+        };
+                
         repaint();
         revalidate();
         
@@ -86,6 +96,7 @@ public class SpaceStationView extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         weaponsPanel = new javax.swing.JPanel();
         jpHangarView = new javax.swing.JScrollPane();
+        hangarPanel = new javax.swing.JPanel();
 
         jLabel1.setText("Potencia de fuego: ");
 
@@ -111,6 +122,9 @@ public class SpaceStationView extends javax.swing.JPanel {
 
         jpHangarView.setBorder(javax.swing.BorderFactory.createTitledBorder("Hangar"));
         jpHangarView.setToolTipText("");
+
+        hangarPanel.setBorder(null);
+        jpHangarView.setViewportView(hangarPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -175,6 +189,7 @@ public class SpaceStationView extends javax.swing.JPanel {
     private javax.swing.JLabel Labelname;
     private javax.swing.JLabel ammoPower;
     private javax.swing.JLabel fuelUnits;
+    private javax.swing.JPanel hangarPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

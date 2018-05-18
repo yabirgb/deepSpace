@@ -39,4 +39,8 @@ abstract public class Damage{
 	return weapons;
     }
     
+    public String toString() {
+        return "weapons = " + weapons + "\n" +super.toString();
+    }
+
 }

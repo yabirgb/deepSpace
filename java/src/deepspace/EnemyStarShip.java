@@ -14,11 +14,7 @@ class EnemyStarShip implements SpaceFighter {
 	ammoPower = a;
 	shieldPower = s;
 	loot = new Loot(l.getNSupplies(), l.getNWeapons(), l.getNShields(), l.getNHangars(), l.getNMedals());
-        if (d instanceof NumericDamage){
-            damage = new NumericDamage((NumericDamage)d);
-        }else{
-            damage = new SpecificDamage((SpecificDamage)d);
-        }
+        damage = d.copy();
     }
 
     EnemyStarShip(EnemyStarShip e){

@@ -17,14 +17,20 @@ public class MainWindow extends javax.swing.JFrame implements View{
     static Controller controller;
     private String appName = "Deepspace";
     private SpaceStationView StationView;
-    private SpaceStationView spaceStationView;
+    private EnemyStarshipView EnemyView;
+    
     /**
      * Creates new form MainWindow
      */
     public MainWindow() {
         initComponents();
-        spaceStationView = new SpaceStationView();
-        stationPanel.add(spaceStationView);
+        
+        StationView = new SpaceStationView();
+        EnemyView = new EnemyStarshipView();
+        
+        stationPanel.add(StationView);
+        enemyPanel.add(EnemyView);
+        
         repaint();
         setLocationRelativeTo(null);
         
@@ -40,9 +46,10 @@ public class MainWindow extends javax.swing.JFrame implements View{
     private void initComponents() {
 
         stationPanel = new javax.swing.JPanel();
+        enemyPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 480));
+        setPreferredSize(new java.awt.Dimension(1024, 720));
 
         stationPanel.setPreferredSize(new java.awt.Dimension(600, 480));
         stationPanel.setRequestFocusEnabled(false);
@@ -53,15 +60,19 @@ public class MainWindow extends javax.swing.JFrame implements View{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(stationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(278, Short.MAX_VALUE))
+                .addComponent(stationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(enemyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(stationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(enemyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(stationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -85,7 +96,8 @@ public class MainWindow extends javax.swing.JFrame implements View{
     
     @Override
     public void updateView() {
-        
+        StationView.setSpaceStation(controller.getUIversion().getCurrentStation());
+        EnemyView.setEnemy(controller.getUIversion().getCurrentEnemy());
     }
     
     @Override
@@ -100,6 +112,7 @@ public class MainWindow extends javax.swing.JFrame implements View{
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel enemyPanel;
     private javax.swing.JPanel stationPanel;
     // End of variables declaration//GEN-END:variables
 }

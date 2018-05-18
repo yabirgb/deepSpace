@@ -22,9 +22,11 @@ public class DeepSpaceGraphic {
         
         // Puedes ejecutar la aplicación con una u otra vista 
         // según que clase de vista se instancie
-        View view = new MainWindow();
+        
 //        View view = new MainWindow_v2();
+        View view = new MainWindow();
         Controller controller = new Controller(model,view);
+        
         controller.start();
     }
     

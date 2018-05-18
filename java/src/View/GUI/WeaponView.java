@@ -13,14 +13,23 @@ public class WeaponView extends javax.swing.JPanel {
     /**
      * Creates new form WeaponView
      */
+    
+    boolean isSelected = false;
+    
     public WeaponView() {
         initComponents();
+        setOpaque(isSelected);
+        repaint();
     }
     
     public void setWeapon(WeaponToUI w){
         Uses.setText(Float.toString(w.getUses()));
         Power.setText(Float.toString(w.getPower()));
         Type.setText(w.getType().toString());
+    }
+    
+    public boolean selected(){
+        return isSelected;
     }
 
     /**
@@ -38,6 +47,15 @@ public class WeaponView extends javax.swing.JPanel {
         Power = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Uses = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(254, 254, 157));
+        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setOpaque(false);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jLabel1.setText("Tipo:");
 
@@ -90,6 +108,13 @@ public class WeaponView extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        isSelected = !isSelected;
+        setOpaque(isSelected);
+        repaint();
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

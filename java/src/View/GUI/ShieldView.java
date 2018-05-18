@@ -11,11 +11,15 @@ import deepspace.ShieldToUI;
  */
 public class ShieldView extends javax.swing.JPanel {
 
+    
+    boolean isSelected = false;
     /**
      * Creates new form ShieldView
      */
     public ShieldView() {
         initComponents();
+        setOpaque(isSelected);
+        repaint();
     }
     
     public void setShield(ShieldToUI s){
@@ -36,6 +40,15 @@ public class ShieldView extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         Uses = new javax.swing.JLabel();
         Power = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(254, 254, 169));
+        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setOpaque(false);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jLabel2.setText("Usos:");
 
@@ -77,7 +90,18 @@ public class ShieldView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        isSelected = !isSelected;
+        setOpaque(isSelected);
+        repaint();
+    }//GEN-LAST:event_formMouseClicked
 
+
+    public boolean selected(){
+        return isSelected;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Power;
     private javax.swing.JLabel Uses;

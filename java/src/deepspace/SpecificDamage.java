@@ -72,4 +72,9 @@ public class SpecificDamage extends Damage{
     SpecificDamage copy(){
         return new SpecificDamage(this);
     }
+    
+    public String toString() {
+        return "weapons = " + weapons + "\n" +super.toString();
+    }
+
 }
