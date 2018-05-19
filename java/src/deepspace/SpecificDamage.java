@@ -20,6 +20,10 @@ public class SpecificDamage extends Damage{
         this(d.getWeapons(), d.getNShields());
     }
     
+    public ArrayList<WeaponType> getWeapons(){
+        return weapons;
+    }
+    
     private int arrayContainsType(ArrayList<Weapon> w, WeaponType t){
 	boolean done = false;
 	int position = -1;
