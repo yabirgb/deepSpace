@@ -21,9 +21,16 @@ public class SpaceStationView extends javax.swing.JPanel {
      * Creates new form SpaceStation
      */
     
+    HangarView hangarView;
    
     public SpaceStationView() {
         initComponents();
+        hangarView = new HangarView();
+        
+        hangarPanel.add(hangarView);
+        
+        repaint();
+        revalidate();
     }
     
     public void setSpaceStation(SpaceStationToUI station){
@@ -56,18 +63,10 @@ public class SpaceStationView extends javax.swing.JPanel {
         }
         
         if (station.getHangar() != null){
-            for(WeaponToUI w: station.getHangar().getWeapons()){
-                weaponView = new WeaponView();
-                weaponView.setWeapon(w);
-                hangarPanel.add(weaponView);
-            }
-
-            for(ShieldToUI w: station.getHangar().getShieldBoosters()){
-                shieldView = new ShieldView();
-                shieldView.setShield(w);
-                hangarPanel.add(shieldView);
-            }
+            hangarView.setHangar(station.getHangar());
         };
+        
+        hangarPanel.add(hangarView);
                 
         repaint();
         revalidate();
@@ -95,8 +94,9 @@ public class SpaceStationView extends javax.swing.JPanel {
         shieldsPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         weaponsPanel = new javax.swing.JPanel();
-        jpHangarView = new javax.swing.JScrollPane();
         hangarPanel = new javax.swing.JPanel();
+
+        setBorder(null);
 
         jLabel1.setText("Potencia de fuego: ");
 
@@ -120,11 +120,7 @@ public class SpaceStationView extends javax.swing.JPanel {
         jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Weapons"));
         jScrollPane2.setViewportView(weaponsPanel);
 
-        jpHangarView.setBorder(javax.swing.BorderFactory.createTitledBorder("Hangar"));
-        jpHangarView.setToolTipText("");
-
-        hangarPanel.setBorder(null);
-        jpHangarView.setViewportView(hangarPanel);
+        hangarPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -133,7 +129,6 @@ public class SpaceStationView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jpHangarView)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -156,13 +151,14 @@ public class SpaceStationView extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(fuelUnits)))))
+                                .addComponent(fuelUnits))))
+                    .addComponent(hangarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
@@ -174,13 +170,13 @@ public class SpaceStationView extends javax.swing.JPanel {
                     .addComponent(shieldPower)
                     .addComponent(Labelname)
                     .addComponent(name))
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jpHangarView, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(hangarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -195,7 +191,6 @@ public class SpaceStationView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jpHangarView;
     private javax.swing.JLabel name;
     private javax.swing.JLabel shieldPower;
     private javax.swing.JPanel shieldsPanel;

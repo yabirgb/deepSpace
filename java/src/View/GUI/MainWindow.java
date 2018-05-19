@@ -31,6 +31,8 @@ public class MainWindow extends javax.swing.JFrame implements View{
         stationPanel.add(StationView);
         enemyPanel.add(EnemyView);
         
+        setTitle(appName);
+        
         repaint();
         setLocationRelativeTo(null);
         
