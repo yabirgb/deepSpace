@@ -3,9 +3,15 @@
  * Each line should be prefixed with  * 
  */
 package View.GUI;
+
+import java.util.ArrayList;
+
+import java.awt.Component;
+
 import deepspace.WeaponToUI;
 import deepspace.ShieldToUI;
 import deepspace.HangarToUI;
+
 
 /**
  *
@@ -21,6 +27,7 @@ public class HangarView extends javax.swing.JPanel {
     }
     
     public void setHangar(HangarToUI h){
+        //.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0,0,0)),title));
         items.removeAll();
         
         WeaponView weaponView;
@@ -40,6 +47,19 @@ public class HangarView extends javax.swing.JPanel {
         repaint();
         revalidate();
     }
+    
+    public ArrayList<Integer> getSelected(){
+        ArrayList<Integer> selected = new ArrayList<>();
+        int pos = 0;
+        for(Component c: items.getComponents()){
+            if( ((CombatElement) c).isSelected()){
+                selected.add(pos);
+            }
+            pos += 1;
+        }
+        
+        return selected;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,17 +73,16 @@ public class HangarView extends javax.swing.JPanel {
         hangarPanel = new javax.swing.JScrollPane();
         items = new javax.swing.JPanel();
 
-        items.setBorder(javax.swing.BorderFactory.createTitledBorder("Hangar"));
+        setBorder(javax.swing.BorderFactory.createTitledBorder("Hangar"));
+
+        items.setBorder(null);
         hangarPanel.setViewportView(items);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(hangarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(hangarPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

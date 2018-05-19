@@ -9,7 +9,7 @@ import deepspace.ShieldToUI;
  *
  * @author yabir
  */
-public class ShieldView extends javax.swing.JPanel {
+public class ShieldView extends javax.swing.JPanel implements CombatElement {
 
     
     boolean isSelected = false;
@@ -98,8 +98,9 @@ public class ShieldView extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseClicked
 
 
-    public boolean selected(){
-        return isSelected;
+    @Override
+    public boolean isSelected(){
+        return this.isSelected;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

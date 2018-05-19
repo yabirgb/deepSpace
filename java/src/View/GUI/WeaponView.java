@@ -9,7 +9,7 @@ import deepspace.WeaponToUI;
  *
  * @author yabir
  */
-public class WeaponView extends javax.swing.JPanel {
+public class WeaponView extends javax.swing.JPanel implements CombatElement{
     /**
      * Creates new form WeaponView
      */
@@ -28,8 +28,9 @@ public class WeaponView extends javax.swing.JPanel {
         Type.setText(w.getType().toString());
     }
     
-    public boolean selected(){
-        return isSelected;
+    @Override
+    public boolean isSelected(){
+        return this.isSelected;
     }
 
     /**
