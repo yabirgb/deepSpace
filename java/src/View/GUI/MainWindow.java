@@ -3,11 +3,18 @@
  * Each line should be prefixed with  * 
  */
 package View.GUI;
-import View.View;
-import deepspace.GameUniverse;
+
 import java.util.ArrayList;
-import controller.Controller;
 import javax.swing.JOptionPane;
+
+import deepspace.GameUniverse;
+import deepspace.GameState;
+
+import controller.Controller;
+
+import View.View;
+import deepspace.CombatResult;
+
 /**
  *
  * @author yabir
@@ -31,6 +38,9 @@ public class MainWindow extends javax.swing.JFrame implements View{
         stationPanel.add(StationView);
         enemyPanel.add(EnemyView);
         
+        message.setVisible(true);
+        message.setText("Has ganado el combate");
+        
         setTitle(appName);
         
         repaint();
@@ -50,6 +60,9 @@ public class MainWindow extends javax.swing.JFrame implements View{
         stationPanel = new javax.swing.JPanel();
         enemyPanel = new javax.swing.JPanel();
         fight = new javax.swing.JButton();
+        nextTurn = new javax.swing.JButton();
+        message = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1100, 720));
@@ -67,32 +80,55 @@ public class MainWindow extends javax.swing.JFrame implements View{
             }
         });
 
+        nextTurn.setText("Siguiente Turno");
+        nextTurn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextTurnActionPerformed(evt);
+            }
+        });
+
+        message.setText("fdf");
+
+        jLabel1.setFont(new java.awt.Font("Bitstream Vera Sans", 1, 14)); // NOI18N
+        jLabel1.setText("Información de la partida:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(stationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(stationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(message)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(enemyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fight, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(enemyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(fight, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+                    .addComponent(nextTurn))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(stationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(enemyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(25, 25, 25)
+                        .addComponent(nextTurn)
                         .addGap(18, 18, 18)
                         .addComponent(fight, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42))))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(stationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(message)
+                        .addGap(0, 12, Short.MAX_VALUE))))
         );
 
         pack();
@@ -100,11 +136,27 @@ public class MainWindow extends javax.swing.JFrame implements View{
 
     private void fightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fightActionPerformed
         // TODO add your handling code here:
+        controller.combat();
     }//GEN-LAST:event_fightActionPerformed
+
+    private void nextTurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextTurnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nextTurnActionPerformed
 
     
     public String getAppName(){
         return appName;
+    }
+    
+        
+    public void displayMessage(CombatResult result){
+        message.setVisible(true);
+        if (result == CombatResult.STATIONWINS){
+        
+        }
+        
+        message.setText("Has ganado el combate");
+    
     }
     
     @Override 
@@ -120,8 +172,17 @@ public class MainWindow extends javax.swing.JFrame implements View{
     
     @Override
     public void updateView() {
+        GameState currentState = controller.getState();
+        if( (currentState== GameState.BEFORECOMBAT) || (currentState == GameState.INIT)){
+            fight.setEnabled(true);
+            nextTurn.setEnabled(false);
+        }
         StationView.setSpaceStation(controller.getUIversion().getCurrentStation());
         EnemyView.setEnemy(controller.getUIversion().getCurrentEnemy());
+        
+        //EnemyView.setVisible(false);
+        //if(currentState == GameState.AFTERCOMBAT)
+        //    EnemyView.setVisible(true);
     }
     
     @Override
@@ -138,6 +199,9 @@ public class MainWindow extends javax.swing.JFrame implements View{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel enemyPanel;
     private javax.swing.JButton fight;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel message;
+    private javax.swing.JButton nextTurn;
     private javax.swing.JPanel stationPanel;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,6 +13,7 @@ import deepspace.CombatResult;
 import deepspace.GameState;
 import deepspace.GameUniverse;
 import deepspace.GameUniverseToUI;
+import deepspace.HangarToUI;
 
 /**
  *
@@ -57,15 +58,20 @@ public class Controller{
     public GameUniverseToUI getUIversion() {
         return model.getUIversion();
     }
+    
+    public void updateView(){
+        view.updateView();
+    }
 
     public GameState getState() {
         return model.getState();
     }
 
     public CombatResult combat() {
-        CombatResult result = model.combat();
+        CombatResult combatResult = model.combat();
+        view.displayMessage(combatResult);
         view.updateView();
-        return result;
+        return combatResult;
     }
 
     public boolean haveAWinner() {
@@ -102,19 +108,32 @@ public class Controller{
         view.updateView();
     }
     
-    public void discardMountedElements(ArrayList<Integer> selected) { 
-        int WeaponSize = model.getUIversion().getCurrentStation().getHangar().getWeapons().size();
-        
-        ArrayList<Integer> reversed = new ArrayList<>(selected);
-        Collections.reverse(reversed);
-        for(Integer i: reversed){
-            if(i < WeaponSize){
-                model.discardWeapon(i);
-            }else{
-                model.discardShieldBooster(i-WeaponSize);
+    public void discardInHangar(ArrayList<Integer> selected) { 
+        HangarToUI h = model.getUIversion().getCurrentStation().getHangar();
+        if(h != null){
+            int w = h.getWeapons().size();
+            int pos;
+
+            for(int i = selected.size()-1; i>=0; i--){
+                pos = selected.get(i);
+                if(pos < w)
+                    model.discardWeaponInHangar(pos);
+                else   
+                    model.discardShieldBoosterInHangar(pos-w);
             }
         }
-        view.updateView();
+    }
+    
+    public void discardWeapons(ArrayList<Integer> selected){
+        
+        for(int i = selected.size()-1; i>=0; i--)
+            model.discardWeapon(selected.get(i)); 
+    }
+    
+    public void discardShieldBoosters(ArrayList<Integer> selected){
+        
+        for(int i = selected.size()-1; i>=0; i--)
+            model.discardShieldBooster(selected.get(i)); 
     }
 
 }

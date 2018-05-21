@@ -85,6 +85,10 @@ public class EnemyStarshipView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void setEnemy(EnemyToUI e){
+        
+        Loot.removeAll();
+        Damage.removeAll();
+        
         AmmoPower.setText(Float.toString(e.getAmmoPower()));
         EnemyName.setText(e.getName());
         

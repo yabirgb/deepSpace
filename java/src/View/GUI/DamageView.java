@@ -78,7 +78,7 @@ public class DamageView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void setDamage(DamageToUI d){
-        System.out.println(d);
+        //System.out.println(d);
         nShields.setText(Integer.toString(d.getNShields()));
         weapons.setText(d.getWeaponInfo());
     }

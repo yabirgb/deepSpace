@@ -5,6 +5,7 @@
 package View;
 
 import deepspace.GameUniverse;
+import deepspace.CombatResult;
 import controller.Controller;
 import java.util.ArrayList;
 /**
@@ -17,4 +18,5 @@ public interface View {
     public void showView();
     public ArrayList<String> getNames();
     public boolean confirmExitMessage();
+    public void displayMessage(CombatResult result);
 }
