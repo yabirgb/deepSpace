@@ -22,13 +22,20 @@ public class SpaceStationView extends javax.swing.JPanel {
      */
     
     private HangarView hangarView;
+    private DamageView damageView;
     boolean hangarVisible = true;
    
     public SpaceStationView() {
         initComponents();
+        
         hangarView = new HangarView();
+        
         noHangar.setVisible(false);
         hangarPanel.add(hangarView);
+        
+        damageView = new DamageView();
+        currentDamage.add(damageView);
+        currentDamage.setVisible(false);
         
         repaint();
         revalidate();
@@ -102,10 +109,11 @@ public class SpaceStationView extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         weaponsPanel = new javax.swing.JPanel();
         hangarPanel = new javax.swing.JPanel();
-        noHangar = new javax.swing.JLabel();
         equipButton = new javax.swing.JButton();
         discard = new javax.swing.JButton();
         discardHangar = new javax.swing.JButton();
+        noHangar = new javax.swing.JLabel();
+        currentDamage = new javax.swing.JPanel();
 
         setBorder(null);
 
@@ -133,10 +141,6 @@ public class SpaceStationView extends javax.swing.JPanel {
 
         hangarPanel.setBorder(null);
 
-        noHangar.setFont(new java.awt.Font("DejaVu Sans", 0, 24)); // NOI18N
-        noHangar.setText("No tienes ningun Hangar");
-        hangarPanel.add(noHangar);
-
         equipButton.setText("Equipar");
         equipButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,12 +155,17 @@ public class SpaceStationView extends javax.swing.JPanel {
             }
         });
 
-        discardHangar.setText("Descartar Todo");
+        discardHangar.setText("Descartar Hangar");
         discardHangar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 discardHangarActionPerformed(evt);
             }
         });
+
+        noHangar.setFont(new java.awt.Font("DejaVu Sans", 0, 24)); // NOI18N
+        noHangar.setText("No tienes ningun Hangar");
+
+        currentDamage.setBorder(javax.swing.BorderFactory.createTitledBorder("Daño recibido"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -165,9 +174,18 @@ public class SpaceStationView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(currentDamage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(hangarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(equipButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(discard)
+                                .addGap(18, 18, 18)
+                                .addComponent(discardHangar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -190,14 +208,10 @@ public class SpaceStationView extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(fuelUnits))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(equipButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(discard)
-                                .addGap(18, 18, 18)
-                                .addComponent(discardHangar)))
-                        .addContainerGap(54, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2)))
+                                .addGap(38, 38, 38)
+                                .addComponent(noHangar)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,18 +228,21 @@ public class SpaceStationView extends javax.swing.JPanel {
                     .addComponent(shieldPower)
                     .addComponent(Labelname)
                     .addComponent(name))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addComponent(currentDamage, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(noHangar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(hangarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(equipButton)
                     .addComponent(discard)
-                    .addComponent(discardHangar))
-                .addContainerGap(65, Short.MAX_VALUE))
+                    .addComponent(discardHangar)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -249,6 +266,7 @@ public class SpaceStationView extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Labelname;
     private javax.swing.JLabel ammoPower;
+    private javax.swing.JPanel currentDamage;
     private javax.swing.JButton discard;
     private javax.swing.JButton discardHangar;
     private javax.swing.JButton equipButton;
