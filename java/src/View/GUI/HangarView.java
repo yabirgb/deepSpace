@@ -27,7 +27,8 @@ public class HangarView extends javax.swing.JPanel {
     }
     
     public void setHangar(HangarToUI h){
-        //.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0,0,0)),title));
+        String title = "Hangar de " + h.getMaxElements() + " elementos";
+        hangarPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0,0,0)),title));
         items.removeAll();
         
         WeaponView weaponView;
@@ -57,7 +58,6 @@ public class HangarView extends javax.swing.JPanel {
             }
             pos += 1;
         }
-        
         return selected;
     }
 
@@ -73,23 +73,22 @@ public class HangarView extends javax.swing.JPanel {
         hangarPanel = new javax.swing.JScrollPane();
         items = new javax.swing.JPanel();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Hangar"));
+        setBorder(null);
 
-        items.setBorder(null);
+        items.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         hangarPanel.setViewportView(items);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hangarPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+            .addComponent(hangarPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(hangarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(hangarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

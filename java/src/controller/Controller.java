@@ -4,7 +4,11 @@
  */
 package controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import View.View;
+
 import deepspace.CombatResult;
 import deepspace.GameState;
 import deepspace.GameUniverse;
@@ -78,41 +82,39 @@ public class Controller{
         view.updateView();
         return result;
     }
-
-    public void mountWeapon(int option) {
-        model.mountWeapon(option);
-        view.updateView();
-    }
     
-    public void mountDiscardFromHangar(Operation operation, Element element, int option) {
-        switch (element) {
-            case WEAPON :
-              if (operation == Operation.MOUNT)
-                  model.mountWeapon(option);
-              else
-                  model.discardWeaponInHangar(option);
-              break;
-            case SHIELD :
-              if (operation == Operation.MOUNT)
-                  model.mountShieldBooster(option);
-              else
-                  model.discardShieldBoosterInHangar(option);
-              break;
-        }
-        view.updateView();
-    }
-    
-    public void discardMountedElements(Element element, int option) {
-        switch (element) {
-            case WEAPON :
-              model.discardWeapon(option);
-              break;
-            case SHIELD :
-              model.discardShieldBooster(option);
-              break;
-        }
-        view.updateView();
+    public void mountFromHangar(ArrayList<Integer> selected) {
+        int WeaponSize = model.getUIversion().getCurrentStation().getHangar().getWeapons().size();
         
+        //Usamos que en el hangar estan primero las armas y despues los 
+        //escudos. Además usamos el vector al reves para no modificar
+        //los índices de los elementos.
+        ArrayList<Integer> reversed = new ArrayList<>(selected);
+        Collections.reverse(reversed);
+        for(Integer i: reversed){
+            if(i < WeaponSize){
+                model.mountWeapon(i);
+            }else{
+                model.mountShieldBooster(i-WeaponSize);
+            }
+        }
+        
+        view.updateView();
+    }
+    
+    public void discardMountedElements(ArrayList<Integer> selected) { 
+        int WeaponSize = model.getUIversion().getCurrentStation().getHangar().getWeapons().size();
+        
+        ArrayList<Integer> reversed = new ArrayList<>(selected);
+        Collections.reverse(reversed);
+        for(Integer i: reversed){
+            if(i < WeaponSize){
+                model.discardWeapon(i);
+            }else{
+                model.discardShieldBooster(i-WeaponSize);
+            }
+        }
+        view.updateView();
     }
 
 }
