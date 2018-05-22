@@ -140,6 +140,7 @@ public class MainWindow extends javax.swing.JFrame implements View{
 
     private void nextTurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextTurnActionPerformed
         // TODO add your handling code here:
+        message.setVisible(false);
         controller.nextTurn();
     }//GEN-LAST:event_nextTurnActionPerformed
 

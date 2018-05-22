@@ -49,6 +49,7 @@ public class SpaceStationView extends javax.swing.JPanel {
         ammoPower.setText(Float.toString(station.getAmmoPower()));
         shieldPower.setText(Float.toString(station.getShieldPower()));
         fuelUnits.setText(Float.toString(station.getFuelUnits()));
+        nMedals.setText(Float.toString(station.getnMedals()));
         
         //Limpiar los menus
         weaponsPanel.removeAll();
@@ -81,7 +82,7 @@ public class SpaceStationView extends javax.swing.JPanel {
         }
         
         if(station.getPendingDamage() == null){
-            currentDamagePanel.setVisible(true);
+            currentDamagePanel.setVisible(false);
         }else{
             damageView.setDamage(station.getPendingDamage());
             currentDamagePanel.add(damageView);
@@ -149,12 +150,14 @@ public class SpaceStationView extends javax.swing.JPanel {
         discardHangar = new javax.swing.JButton();
         noHangar = new javax.swing.JLabel();
         currentDamagePanel = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        nMedals = new javax.swing.JLabel();
 
         setBorder(null);
 
         jLabel1.setText("Potencia de fuego: ");
 
-        jLabel2.setText("Potencia de disparo:");
+        jLabel2.setText("Potencia de defensa:");
 
         jLabel3.setText("Combustible:");
 
@@ -201,6 +204,10 @@ public class SpaceStationView extends javax.swing.JPanel {
         noHangar.setText("No tienes ningun Hangar");
 
         currentDamagePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Daño recibido"));
+
+        jLabel4.setText("Medallas:");
+
+        nMedals.setText("jLabel5");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -249,8 +256,13 @@ public class SpaceStationView extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(38, 38, 38)
                                         .addComponent(noHangar)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                .addGap(0, 43, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nMedals)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,8 +279,12 @@ public class SpaceStationView extends javax.swing.JPanel {
                     .addComponent(shieldPower)
                     .addComponent(Labelname)
                     .addComponent(name))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(nMedals))
                 .addGap(18, 18, 18)
-                .addComponent(currentDamagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addComponent(currentDamagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -318,8 +334,10 @@ public class SpaceStationView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel nMedals;
     private javax.swing.JLabel name;
     private javax.swing.JLabel noHangar;
     private javax.swing.JLabel shieldPower;
