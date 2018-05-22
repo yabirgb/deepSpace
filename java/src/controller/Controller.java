@@ -84,9 +84,12 @@ public class Controller{
     }
 
     public boolean nextTurn() {
-        boolean result = model.nextTurn();
-        view.updateView();
-        return result;
+        boolean next = model.nextTurn();
+        if(next)
+            view.updateView();
+        else
+            view.displayCleanDamage();
+        return next;
     }
     
     public void mountFromHangar(ArrayList<Integer> selected) {
