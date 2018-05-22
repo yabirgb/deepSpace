@@ -19,4 +19,5 @@ public interface View {
     public ArrayList<String> getNames();
     public boolean confirmExitMessage();
     public void displayMessage(CombatResult result);
+    public void displayCleanDamage();
 }

@@ -38,8 +38,7 @@ public class MainWindow extends javax.swing.JFrame implements View{
         stationPanel.add(StationView);
         enemyPanel.add(EnemyView);
         
-        message.setVisible(true);
-        message.setText("Has ganado el combate");
+        message.setVisible(false);
         
         setTitle(appName);
         
@@ -65,7 +64,7 @@ public class MainWindow extends javax.swing.JFrame implements View{
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1100, 600));
+        setPreferredSize(new java.awt.Dimension(1100, 900));
 
         stationPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         stationPanel.setPreferredSize(new java.awt.Dimension(600, 480));
@@ -123,12 +122,12 @@ public class MainWindow extends javax.swing.JFrame implements View{
                         .addComponent(fight, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(stationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(stationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(message)
-                        .addGap(0, 12, Short.MAX_VALUE))))
+                        .addGap(22, 22, 22))))
         );
 
         pack();
@@ -141,6 +140,7 @@ public class MainWindow extends javax.swing.JFrame implements View{
 
     private void nextTurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextTurnActionPerformed
         // TODO add your handling code here:
+        controller.nextTurn();
     }//GEN-LAST:event_nextTurnActionPerformed
 
     
@@ -148,15 +148,39 @@ public class MainWindow extends javax.swing.JFrame implements View{
         return appName;
     }
     
-        
+    
+    @Override
     public void displayMessage(CombatResult result){
         message.setVisible(true);
-        if (result == CombatResult.STATIONWINS){
         
+        switch(result){
+            case STATIONESCAPES:
+                message.setText("Has logrado escapar... pero tranquilo, no eres una Gallina Espacial.");
+                break;
+            case STATIONWINS :
+                message.setText("Has GANADO el combate. Disfruta de tu botín.");
+                if (controller.haveAWinner()) {
+                    JOptionPane.showMessageDialog(this,"HAS GANADO LA PARTIDA!! <3",getAppName(),JOptionPane.INFORMATION_MESSAGE);
+                    System.exit (0);
+                }
+                break;
+            case STATIONWINSANDCONVERTS:
+                message.setText("Has GANADO el combate. Disfruta de tu botín. WOLOLOLO! TE HAS TRANSFORMADO!");
+                if (controller.haveAWinner()) {
+                    JOptionPane.showMessageDialog(this,"HAS GANADO LA PARTIDA!! <3",getAppName(),JOptionPane.INFORMATION_MESSAGE);
+                    System.exit (0);
+                }
+                break;
+            case ENEMYWINS:
+                message.setText("Has PERDIDO el combate. Cumple tu castigo.");
+                break;
         }
-        
-        message.setText("Has ganado el combate");
     
+    }
+    
+    @Override
+    public void displayCleanDamage(){
+        JOptionPane.showConfirmDialog(this, "No puedes continuar! Tienes daño pendiente\n", getAppName(), JOptionPane.YES_NO_OPTION);
     }
     
     @Override 
@@ -173,6 +197,8 @@ public class MainWindow extends javax.swing.JFrame implements View{
     @Override
     public void updateView() {
         GameState currentState = controller.getState();
+        fight.setEnabled(false);
+        nextTurn.setEnabled(true);
         if( (currentState== GameState.BEFORECOMBAT) || (currentState == GameState.INIT)){
             fight.setEnabled(true);
             nextTurn.setEnabled(false);

@@ -101,8 +101,8 @@
                   <Component id="name" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="currentDamagePanel" pref="106" max="32767" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="currentDamagePanel" pref="118" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="100" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="100" max="-2" attributes="0"/>

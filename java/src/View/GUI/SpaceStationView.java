@@ -81,7 +81,7 @@ public class SpaceStationView extends javax.swing.JPanel {
         }
         
         if(station.getPendingDamage() == null){
-            currentDamagePanel.setVisible(false);
+            currentDamagePanel.setVisible(true);
         }else{
             damageView.setDamage(station.getPendingDamage());
             currentDamagePanel.add(damageView);
@@ -268,8 +268,8 @@ public class SpaceStationView extends javax.swing.JPanel {
                     .addComponent(Labelname)
                     .addComponent(name))
                 .addGap(18, 18, 18)
-                .addComponent(currentDamagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(currentDamagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
