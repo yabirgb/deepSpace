@@ -13,7 +13,7 @@ class EnemyStarShip implements SpaceFighter {
 	name = n;
 	ammoPower = a;
 	shieldPower = s;
-	loot = new Loot(l.getNSupplies(), l.getNWeapons(), l.getNShields(), l.getNHangars(), l.getNMedals());
+	loot = new Loot(l.getNSupplies(), l.getNWeapons(), l.getNShields(), l.getNHangars(), l.getNMedals(), l.getEfficient(), l.spaceCity());
         damage = d.copy();
     }
 

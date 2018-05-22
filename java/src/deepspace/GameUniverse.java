@@ -182,7 +182,8 @@ public class GameUniverse {
                 gameState.next(turns, spaceStations.size());
                 return true;
             }
-        }
+        }                System.out.println("EsCAPA ");
+
         
         return false;
     }

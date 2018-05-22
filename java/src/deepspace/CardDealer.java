@@ -71,6 +71,7 @@ class CardDealer {
     }
     
     private void createSuppliesPackages() {
+        /*
         suppliesPackages.add(new SuppliesPackage(1,10,1));
         suppliesPackages.add(new SuppliesPackage(1,10,1));
         suppliesPackages.add(new SuppliesPackage(1,10,1));
@@ -83,7 +84,8 @@ class CardDealer {
         suppliesPackages.add(new SuppliesPackage(1,0,3));
         suppliesPackages.add(new SuppliesPackage(3,50,3));    
         suppliesPackages.add(new SuppliesPackage(40,100,40));
-        suppliesPackages.add(new SuppliesPackage(100,100,100));
+*/
+        suppliesPackages.add(new SuppliesPackage(100,0,100));
     }
     private void createWeapons() {
        weapons.add(new Weapon("Láser infinito",WeaponType.LASER,100));
@@ -188,7 +190,8 @@ class CardDealer {
         enemies.add(new EnemyStarShip("Enemigo fácil 1",10,20,badLoot,lowDamage1));
         enemies.add(new EnemyStarShip("Enemigo fácil 2",20,10,badLoot,lowDamage2));
         enemies.add(new EnemyStarShip("Enemigo fácil 2",20,10,badLoot,lowDamage2));
-        enemies.add(new EnemyStarShip("Enemigo fácil 2",20,20,badLoot,lowDamage2));        
+        enemies.add(new EnemyStarShip("Enemigo fácil 2",20,20,badLoot,lowDamage2));
+        /*
         enemies.add(new EnemyStarShip("Enemigo fácil 3",50,50,badLoot,softSpecificDamage0)); 
         enemies.add(new EnemyStarShip("Enemigo fácil 4",50,50,badLoot,softSpecificDamage1)); 
         enemies.add(new EnemyStarShip("Enemigo fácil 5",30,30,badLoot,softSpecificDamage2));         
@@ -205,15 +208,15 @@ class CardDealer {
         enemies.add(new EnemyStarShip("Enemigo difícil 1",100,200,goodLoot,hardSpecificDamage0));   
         
         enemies.add(new EnemyStarShip("Enemigo imposible",500,500,goodLoot,hardSpecificDamage0));    
-        
+        */
         
         //Enemigos que transforman
         
         Loot transformLoot0=new Loot(1,1,1,0,1,true,false);
         Loot transformLoot1=new Loot(1,1,1,0,1,false,true);
         
-        enemies.add(new EnemyStarShip("Enemigo transforma 0",200,100,transformLoot0,regularDamage0));  
-        enemies.add(new EnemyStarShip("Enemigo transforma 1",100,200,transformLoot1,regularDamage1));           
+        enemies.add(new EnemyStarShip("Enemigo transforma 0",50,100,transformLoot0,regularDamage0));  
+        enemies.add(new EnemyStarShip("Enemigo transforma 1",50,200,transformLoot1,regularDamage1));           
     }
 }
 

@@ -15,27 +15,27 @@ public class Loot {
     private int nShields;
     private int nHangars;
     private int nMedals;
-    private boolean getEfficient;
+    private boolean efficient;
     private boolean spaceCity;
     
-    Loot(int nSupplies, int nWeapons, int nShields, int nHangars, int nMedals){
-        this.nSupplies = nSupplies;
-        this.nWeapons = nWeapons;
-        this.nShields = nShields;
-        this.nHangars = nHangars;
-        this.nMedals = nMedals;
-        this.getEfficient = false;
-        this.spaceCity = false;
+    Loot(int sp, int wp, int sh, int hn, int medals){
+        nSupplies=sp;
+        nWeapons=wp;
+        nShields=sh;
+        nHangars=hn;
+        nMedals=medals;
+        efficient=false;
+        spaceCity=false;
     }
     
-    Loot(int nSupplies, int nWeapons, int nShields, int nHangars, int nMedals, boolean ef, boolean city){
-        this.nSupplies = nSupplies;
-        this.nWeapons = nWeapons;
-        this.nShields = nShields;
-        this.nHangars = nHangars;
-        this.nMedals = nMedals;
-        this.getEfficient = ef;
-        this.spaceCity = city;
+    Loot(int sp, int wp, int sh, int hn, int medals, boolean ef, boolean city){
+        this(sp,wp,sh,hn,medals);
+        efficient=ef;
+        spaceCity=city;
+    }
+    
+    Loot(Loot l){
+        this(l.nSupplies, l.nWeapons, l.nShields, l.nHangars, l.nMedals, l.efficient, l.spaceCity);
     }
     
     public int getNSupplies(){
@@ -59,7 +59,7 @@ public class Loot {
     }
     
     public boolean getEfficient(){
-        return getEfficient;
+        return efficient;
     }
     
     public boolean spaceCity(){

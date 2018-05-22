@@ -37,13 +37,13 @@ class SpaceStation implements SpaceFighter{
         this(s.name, new SuppliesPackage(s.ammoPower, s.fuelUnits, s.shieldPower));
         weapons = new ArrayList(s.weapons);
         shieldBoosters = new ArrayList(s.shieldBoosters);
-        
-        if(hangar != null)
+
+        hangar=null;
+        if (s.hangar != null)
             hangar = new Hangar(s.hangar);
-        else
-            hangar = null;
         
-        if (s.pendingDamage != null)
+        pendingDamage = null;
+        if(s.pendingDamage != null)
             pendingDamage = s.pendingDamage.copy();
     }
 
@@ -60,8 +60,8 @@ class SpaceStation implements SpaceFighter{
     }
     
     public void cleanUpMountedItems(){
-        shieldBoosters.removeIf(x->x.getUses() == 0);
-        shieldBoosters.removeIf(x->x.getUses() == 0);
+        weapons.removeIf(x->x.getUses() <= 0);
+        shieldBoosters.removeIf(x->x.getUses() <= 0);
     }
 
     // =================
