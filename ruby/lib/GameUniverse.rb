@@ -181,12 +181,8 @@ module Deepspace
         
         if transformation == Transformation::GETEFFICIENT
           makeStationEfficient
-        elsif transformation == Transformation::SPACECITY
-          if !@haveSpaceCity
-            combatResult=CombatResult::STATIONWINS
-          else
+        elsif transformation == Transformation::SPACECITY && !@haveSpaceCity
             createSpaceCity
-          end 
         else  
           combatResult=CombatResult::STATIONWINS
         end
@@ -194,6 +190,7 @@ module Deepspace
         
       end
       @gameState.next(@turns, @spaceStations.length)
+      puts("====================================== #{combatResult}")
       return combatResult
       
     end
