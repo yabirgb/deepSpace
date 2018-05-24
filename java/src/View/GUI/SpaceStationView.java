@@ -100,12 +100,13 @@ public class SpaceStationView extends javax.swing.JPanel {
         
         GameState state = MainWindow.controller.getState();
         
-        if((state == GameState.AFTERCOMBAT)||(state == GameState.INIT)){
+        if((state == GameState.AFTERCOMBAT)){
             discardHangar.setEnabled(true);
             discard.setEnabled(true);
             equipButton.setEnabled(true);
+        }else if((state ==GameState.INIT)){
+            equipButton.setEnabled(true);
         }
-        
                 
         repaint();
         revalidate();
