@@ -71,6 +71,8 @@ public class MainWindow extends javax.swing.JFrame implements View{
         stationPanel.setRequestFocusEnabled(false);
 
         enemyPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        enemyPanel.setMinimumSize(new java.awt.Dimension(200, 200));
+        enemyPanel.setPreferredSize(new java.awt.Dimension(399, 373));
 
         fight.setText("Combatir");
         fight.addActionListener(new java.awt.event.ActionListener() {
@@ -102,11 +104,10 @@ public class MainWindow extends javax.swing.JFrame implements View{
                     .addComponent(message)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(enemyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(fight, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
-                    .addComponent(nextTurn))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(nextTurn)
+                    .addComponent(enemyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                    .addComponent(fight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -207,9 +208,11 @@ public class MainWindow extends javax.swing.JFrame implements View{
         StationView.setSpaceStation(controller.getUIversion().getCurrentStation());
         EnemyView.setEnemy(controller.getUIversion().getCurrentEnemy());
         
-        //EnemyView.setVisible(false);
-        //if(currentState == GameState.AFTERCOMBAT)
-        //    EnemyView.setVisible(true);
+        EnemyView.setVisible(false);
+        if(currentState == GameState.AFTERCOMBAT){
+            EnemyView.setVisible(true);
+        }
+            
     }
     
     @Override

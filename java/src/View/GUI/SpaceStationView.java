@@ -4,6 +4,7 @@
  */
 
 package View.GUI;
+import deepspace.GameState;
 import java.util.ArrayList;
 
 import deepspace.SpaceStationToUI;
@@ -51,6 +52,10 @@ public class SpaceStationView extends javax.swing.JPanel {
         fuelUnits.setText(Float.toString(station.getFuelUnits()));
         nMedals.setText(Float.toString(station.getnMedals()));
         
+        discardHangar.setEnabled(false);
+        discard.setEnabled(false);
+        equipButton.setEnabled(false);
+        
         //Limpiar los menus
         weaponsPanel.removeAll();
         shieldsPanel.removeAll();
@@ -92,6 +97,14 @@ public class SpaceStationView extends javax.swing.JPanel {
         noHangar.setVisible(!hangarVisible);
         hangarPanel.setVisible(hangarVisible);
         hangarPanel.add(hangarView);
+        
+        GameState state = MainWindow.controller.getState();
+        
+        if((state == GameState.AFTERCOMBAT)||(state == GameState.INIT)){
+            discardHangar.setEnabled(true);
+            discard.setEnabled(true);
+            equipButton.setEnabled(true);
+        }
         
                 
         repaint();
